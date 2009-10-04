@@ -28,4 +28,4 @@ resources:
   homepage: http://search.cpan.org/dist/Pod-Markdown/
   license: http://dev.perl.org/licenses/
   repository: git://github.com/hanekomu/pod-markdown.git
-version: 0.01
+version: 0.02
