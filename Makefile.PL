@@ -1,36 +1,48 @@
-use inc::Module::Install;
-include 'Module::AutoInstall';
 
-name 'Pod-Markdown';
-all_from 'lib/Pod/Markdown.pm';
+use strict;
+use warnings;
 
-auto_set_homepage;
-auto_set_bugtracker;
-auto_set_repository;
+ BEGIN { require 5.008; } 
 
-requires 'Pod::Parser';
+use ExtUtils::MakeMaker 6.11;
 
-test_requires 'Test::More' => '0.70';
-test_requires 'Test::Differences';
-extra_tests;
 
-author_requires 'ShipIt';
-author_requires 'ShipIt::Step::DistClean';
-author_requires 'ShipIt::Step::DistTestExtra';
-author_requires 'ShipIt::Step::Manifest';
-author_requires 'ShipIt::Step::Twitter';
-author_requires 'Test::Compile';
-author_requires 'Test::Perl::Critic';
-author_requires 'Test::Pod';
-author_requires 'Test::Spelling';
-author_requires 'Pod::Wordlist::hanekomu';
-author_requires 'Test::Pod::Coverage';
-# author_requires 'Test::Kwalitee';
-author_requires 'Test::YAML::Meta';
-author_requires 'Test::Portability::Files';
-author_requires 'Test::Synopsis';
 
-install_script glob('bin/*');
-auto_install;
-auto_include;
-WriteAll;
+my %WriteMakefileArgs = (
+                       'test' => {
+                                   'TESTS' => 't/*.t'
+                                 },
+                       'NAME' => 'Pod::Markdown',
+                       'DISTNAME' => 'Pod-Markdown',
+                       'CONFIGURE_REQUIRES' => {
+                                                 'ExtUtils::MakeMaker' => '6.11'
+                                               },
+                       'AUTHOR' => 'Marcel Gruenauer <marcel@cpan.org>, Victor Moral <victor@taquiones.net>',
+                       'BUILD_REQUIRES' => {},
+                       'ABSTRACT' => 'Convert POD to Markdown',
+                       'EXE_FILES' => [
+                                        'bin/pod2markdown'
+                                      ],
+                       'VERSION' => '1.100860',
+                       'PREREQ_PM' => {
+                                        'Scalar::Util' => '0',
+                                        'parent' => '0',
+                                        'English' => '0',
+                                        'Pod::Parser' => '0',
+                                        'Carp' => '0',
+                                        'Test::More' => '0.88',
+                                        'Test::Differences' => '0',
+                                        'File::Find' => '0',
+                                        'File::Temp' => '0'
+                                      },
+                       'LICENSE' => 'perl'
+                     );
+
+
+delete $WriteMakefileArgs{LICENSE}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.31) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
+

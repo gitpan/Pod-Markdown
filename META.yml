@@ -1,31 +1,34 @@
 ---
 abstract: 'Convert POD to Markdown'
 author:
-  - 'Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>'
-build_requires:
-  ExtUtils::MakeMaker: 6.42
-  Test::Differences: 0
-  Test::More: 0.70
+  - 'Marcel Gruenauer <marcel@cpan.org>'
+  - 'Victor Moral <victor@taquiones.net>'
+build_requires: {}
 configure_requires:
-  ExtUtils::MakeMaker: 6.42
-distribution_type: module
-generated_by: 'Module::Install version 0.91'
+  ExtUtils::MakeMaker: 6.11
+generated_by: 'Dist::Zilla version 1.100711'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Pod-Markdown
-no_index:
-  directory:
-    - inc
-    - t
-    - xt
+provides:
+  Pod::Markdown:
+    file: lib/Pod/Markdown.pm
+    version: 1.100860
 requires:
+  Carp: 0
+  English: 0
+  File::Find: 0
+  File::Temp: 0
   Pod::Parser: 0
-  perl: 5.6.0
+  Scalar::Util: 0
+  Test::Differences: 0
+  Test::More: 0.88
+  parent: 0
+  perl: 5.008
 resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Markdown
   homepage: http://search.cpan.org/dist/Pod-Markdown/
-  license: http://dev.perl.org/licenses/
-  repository: git://github.com/hanekomu/pod-markdown.git
-version: 0.02
+  repository: http://github.com/hanekomu/Pod-Markdown
+version: 1.100860

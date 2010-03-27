@@ -1,12 +1,11 @@
-package Pod::Markdown;
-
-use 5.006;
+use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
-
-use base qw(Pod::Parser);
+package Pod::Markdown;
+our $VERSION = '1.100860';
+# ABSTRACT: Convert POD to Markdown
+use parent qw(Pod::Parser);
 
 sub initialize {
     my $self = shift;
@@ -18,25 +17,23 @@ sub initialize {
 sub _private {
     my $self = shift;
     $self->{_MyParser} ||= {
-        Text      => [],     # final text
-        Indent    => 0,      # list indent levels counter
-        ListType  => '-',    # character on every item
-        searching => undef,  # what are we searching for? (title, author etc.)
-        Title     => undef,  # page title
-        Author    => undef,  # page author
+        Text      => [],       # final text
+        Indent    => 0,        # list indent levels counter
+        ListType  => '-',      # character on every item
+        searching => undef,    # what are we searching for? (title, author etc.)
+        Title     => undef,    # page title
+        Author    => undef,    # page author
     };
 }
 
 sub as_markdown {
     my ($parser, %args) = @_;
-    my $data   = $parser->_private;
-    my $lines  = $data->{Text};
-
+    my $data  = $parser->_private;
+    my $lines = $data->{Text};
     my @header;
     if ($args{with_meta}) {
         @header = $parser->_build_markdown_head;
     }
-
     join("\n" x 2, @header, @{$lines});
 }
 
@@ -154,7 +151,7 @@ sub textblock {
 
 sub interior_sequence {
     my ($parser, $seq_command, $seq_argument, $pod_seq) = @_;
-    my $data       = $parser->_private;
+    my $data      = $parser->_private;
     my %interiors = (
         'I' => sub { return '_' . $_[1] . '_' },      # italic
         'B' => sub { return '__' . $_[1] . '__' },    # bold
@@ -186,19 +183,26 @@ sub _resolv_link {
         # direct link to a URL
         return sprintf '<%s>', $arg;
     } elsif ($arg =~ m{^(\w+(::\w+)*)$}) {
-        return "[$1](http://search.cpan.org/search?mode=module&query=$1)"
+        return "[$1](http://search.cpan.org/perldoc?$1)";
     } else {
         return sprintf '%s<%s>', $cmd, $arg;
     }
 }
-
 1;
 
+
 __END__
+=pod
+
+=for stopwords textblock
 
 =head1 NAME
 
 Pod::Markdown - Convert POD to Markdown
+
+=head1 VERSION
+
+version 1.100860
 
 =head1 SYNOPSIS
 
@@ -212,80 +216,68 @@ This module subclasses L<Pod::Parser> and converts POD to Markdown.
 
 =head1 METHODS
 
-=over 4
-
-=item C<initialize>
+=head2 initialize
 
 Initializes a newly constructed object.
 
-=item C<as_markdown>
+=head2 as_markdown
 
 Returns the parsed POD as Markdown. Takes named arguments. If the C<with_meta>
 argument is given a positive value, meta tags are generated as well.
 
-=item C<command>
+=head2 command
 
 Handles POD command paragraphs, denoted by a line beginning with C<=>.
 
-=item C<verbatim>
+=head2 verbatim
 
 Handles verbatim text.
 
-=item C<textblock>
+=head2 textblock
 
 Handles normal blocks of POD.
 
-=item C<interior_sequence>
+=head2 interior_sequence
 
 Handles interior sequences in POD. An interior sequence is an embedded command
 within a block of text which appears as a command name - usually a single
 uppercase character - followed immediately by a string of text which is
 enclosed in angle brackets.
 
-=back
-
-=head1 BUGS AND LIMITATIONS
-
-=over 4
-
-=item * Doesn't create pure Markdown texts. 
-
-=item * The links to manpages are incomplete.
-
-=back
-
-Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
-
 =head1 INSTALLATION
 
 See perlmodinstall for information and options on installing Perl modules.
+
+=head1 BUGS AND LIMITATIONS
+
+No bugs have been reported.
+
+Please report any bugs or feature requests through the web interface at
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Markdown>.
 
 =head1 AVAILABILITY
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see L<http://search.cpan.org/dist/Pod-Markdown/>.
+site near you, or see
+L<http://search.cpan.org/dist/Pod-Markdown/>.
 
-The development version lives at L<http://github.com/hanekomu/pod-markdown/>.
+The development version lives at
+L<http://github.com/hanekomu/Pod-Markdown/>.
 Instead of sending patches, please fork this project using the standard git
 and github infrastructure.
 
 =head1 AUTHORS
 
-Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
-
-Victor Moral, C<< <victor@taquiones.net> >>
+  Marcel Gruenauer <marcel@cpan.org>
+  Victor Moral <victor@taquiones.net>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009 by Marcel GrE<uuml>nauer
+This software is copyright (c) 2004 by Marcel Gruenauer.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-=head1 SEE ALSO
-
-This module is strongly based on C<pod2mdwn> from L<Module::Build::IkiWiki>.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+

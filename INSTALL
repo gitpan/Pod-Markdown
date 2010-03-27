@@ -1,9 +1,10 @@
+
 This is the Perl distribution Pod-Markdown.
 
 ## Installation
 
-Pod-Markdown installation is straightforward. If your CPAN shell is
-set up, you should just be able to do
+Pod-Markdown installation is straightforward.
+If your CPAN shell is set up, you should just be able to do
 
     % cpan Pod::Markdown
 
@@ -18,10 +19,9 @@ Then install it:
 
 ## Documentation
 
-Pod-Markdown documentation is available as in POD. So you can do:
+Pod-Markdown documentation is available as in POD.
+So you can do:
 
     % perldoc Pod::Markdown
 
-to read the documentation online with your favorite pager.
-
-Marcel Gruenauer
+to read the documentation with your favorite pager.
