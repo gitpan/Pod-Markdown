@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package Pod::Markdown;
-our $VERSION = '1.100860';
+BEGIN {
+  $Pod::Markdown::VERSION = '1.103490';
+}
 # ABSTRACT: Convert POD to Markdown
 use parent qw(Pod::Parser);
 
@@ -72,8 +74,7 @@ sub _indent_text {
 }
 
 sub _clean_text {
-    my $parser  = shift;
-    my $text    = shift;
+    my $text    = $_[1];
     my @trimmed = grep { $_; } split(/\n/, $text);
     return wantarray ? @trimmed : join("\n", @trimmed);
 }
@@ -89,8 +90,10 @@ sub command {
     if ($command =~ m{head(\d)}xms) {
         my $level = $1;
 
+        $paragraph = $parser->interpolate($paragraph, $line_num);
+
         # the headers never are indented
-        $parser->_save(sprintf '%s %s', '#' x $level, $paragraph);
+        $parser->_save($parser->format_header($level, $paragraph));
         if ($level == 1) {
             if ($paragraph =~ m{NAME}xmsi) {
                 $data->{searching} = 'title';
@@ -123,7 +126,7 @@ sub command {
 }
 
 sub verbatim {
-    my ($parser, $paragraph, $line_num) = @_;
+    my ($parser, $paragraph) = @_;
     $parser->_save($paragraph);
 }
 
@@ -150,8 +153,7 @@ sub textblock {
 }
 
 sub interior_sequence {
-    my ($parser, $seq_command, $seq_argument, $pod_seq) = @_;
-    my $data      = $parser->_private;
+    my ($seq_command, $seq_argument, $pod_seq) = @_[1..3];
     my %interiors = (
         'I' => sub { return '_' . $_[1] . '_' },      # italic
         'B' => sub { return '__' . $_[1] . '__' },    # bold
@@ -159,7 +161,7 @@ sub interior_sequence {
         'F' => sub { return '`' . $_[1] . '`' },      # system path
         'S' => sub { return '`' . $_[1] . '`' },      # code
         'E' => sub {
-            my ($seq, $charname) = @_;
+            my $charname = $_[1];
             return '<' if $charname eq 'lt';
             return '>' if $charname eq 'gt';
             return '|' if $charname eq 'verbar';
@@ -177,17 +179,29 @@ sub interior_sequence {
 }
 
 sub _resolv_link {
-    my ($cmd, $arg, $pod_seq) = @_;
-    if ($arg =~ m{^http|ftp}xms) {
+    my ($cmd, $arg) = @_;
+    my $text = $arg =~ s"^(.+?)\|"" ? $1 : '';
 
-        # direct link to a URL
-        return sprintf '<%s>', $arg;
-    } elsif ($arg =~ m{^(\w+(::\w+)*)$}) {
-        return "[$1](http://search.cpan.org/perldoc?$1)";
+    if ($arg =~ m{^http|ftp}xms) { # direct link to a URL
+        $text ||= $arg;
+        return sprintf '[%s](%s)', $text, $arg;
+    } elsif ($arg =~ m{^/(.*)$}) {
+        $text ||= $1;
+        $text = $1;
+        return "[$text](\#pod_$1)";
+    } elsif ($arg =~ m{^(\w+(?:::\w+)*)$}) {
+        $text ||= $1;
+        return "[$text](http://search.cpan.org/perldoc?$1)";
     } else {
         return sprintf '%s<%s>', $cmd, $arg;
     }
 }
+
+sub format_header {
+    my ($level, $paragraph) = @_[1,2];
+    sprintf '%s %s', '#' x $level, $paragraph;
+}
+
 1;
 
 
@@ -202,7 +216,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.100860
+version 1.103490
 
 =head1 SYNOPSIS
 
@@ -244,6 +258,10 @@ within a block of text which appears as a command name - usually a single
 uppercase character - followed immediately by a string of text which is
 enclosed in angle brackets.
 
+=head2 format_header
+
+Formats a header according to the given level.
+
 =head1 INSTALLATION
 
 See perlmodinstall for information and options on installing Perl modules.
@@ -259,18 +277,30 @@ L<http://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Markdown>.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
-site near you, or see
-L<http://search.cpan.org/dist/Pod-Markdown/>.
+site near you, or see L<http://search.cpan.org/dist/Pod-Markdown/>.
 
-The development version lives at
-L<http://github.com/hanekomu/Pod-Markdown/>.
-Instead of sending patches, please fork this project using the standard git
-and github infrastructure.
+The development version lives at L<http://github.com/hanekomu/Pod-Markdown.git>
+and may be cloned from L<git://github.com/hanekomu/Pod-Markdown.git>.
+Instead of sending patches, please fork this project using the standard
+git and github infrastructure.
 
 =head1 AUTHORS
 
-  Marcel Gruenauer <marcel@cpan.org>
-  Victor Moral <victor@taquiones.net>
+=over 4
+
+=item *
+
+Marcel Gruenauer <marcel@cpan.org>
+
+=item *
+
+Victor Moral <victor@taquiones.net>
+
+=item *
+
+Ryan C. Thompson
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

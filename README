@@ -2,7 +2,7 @@ NAME
     Pod::Markdown - Convert POD to Markdown
 
 VERSION
-    version 1.100860
+    version 1.103490
 
 SYNOPSIS
         my $parser = Pod::Markdown->new;
@@ -36,6 +36,9 @@ METHODS
     a single uppercase character - followed immediately by a string of text
     which is enclosed in angle brackets.
 
+  format_header
+    Formats a header according to the given level.
+
 INSTALLATION
     See perlmodinstall for information and options on installing Perl
     modules.
@@ -52,13 +55,17 @@ AVAILABILITY
     CPAN site near you, or see <http://search.cpan.org/dist/Pod-Markdown/>.
 
     The development version lives at
-    <http://github.com/hanekomu/Pod-Markdown/>. Instead of sending patches,
-    please fork this project using the standard git and github
+    <http://github.com/hanekomu/Pod-Markdown.git> and may be cloned from
+    <git://github.com/hanekomu/Pod-Markdown.git>. Instead of sending
+    patches, please fork this project using the standard git and github
     infrastructure.
 
 AUTHORS
-      Marcel Gruenauer <marcel@cpan.org>
-      Victor Moral <victor@taquiones.net>
+    *   Marcel Gruenauer <marcel@cpan.org>
+
+    *   Victor Moral <victor@taquiones.net>
+
+    *   Ryan C. Thompson
 
 COPYRIGHT AND LICENSE
     This software is copyright (c) 2004 by Marcel Gruenauer.

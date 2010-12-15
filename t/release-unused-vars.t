@@ -10,7 +10,7 @@ BEGIN {
 
 use Test::More;
 
-eval "use Test::CheckChanges";
-plan skip_all => "Test::CheckChanges required for testing changes"
+eval "use Test::Vars";
+plan skip_all => "Test::Vars required for testing unused vars"
   if $@;
-ok_changes();
+all_vars_ok();

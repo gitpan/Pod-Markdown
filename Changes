@@ -1,5 +1,9 @@
 Revision history for Perl extension Pod-Markdown
 
+1.103490  2010-12-15 16:12:31 Europe/Vienna
+    - improved L<> link handling
+    - Enabled interpolation of I<these thingies> in headers
+
 1.100860  2010-03-27 14:31:43 Europe/Vienna
     - converted the distribution to Dist::Zilla-style
     - bin/pod2markdown now uses '#!/usr/bin/env perl'
