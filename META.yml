@@ -3,7 +3,7 @@ abstract: 'Convert POD to Markdown'
 author:
   - 'Marcel Gruenauer <marcel@cpan.org>'
   - 'Victor Moral <victor@taquiones.net>'
-  - 'Ryan C. Thompson'
+  - 'Ryan C. Thompson <rct at thompsonclan d0t org>'
 build_requires:
   Carp: 0
   English: 0
@@ -24,7 +24,7 @@ name: Pod-Markdown
 provides:
   Pod::Markdown:
     file: lib/Pod/Markdown.pm
-    version: 1.103490
+    version: 1.103491
 requires:
   Pod::Parser: 0
   parent: 0
@@ -33,4 +33,4 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Markdown
   homepage: http://search.cpan.org/dist/Pod-Markdown/
   repository: git://github.com/hanekomu/Pod-Markdown.git
-version: 1.103490
+version: 1.103491

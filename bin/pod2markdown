@@ -23,7 +23,7 @@ pod2markdown - Convert POD text to Markdown
 
 =head1 VERSION
 
-version 1.103490
+version 1.103491
 
 =head1 SYNOPSIS
 
@@ -74,7 +74,7 @@ Victor Moral <victor@taquiones.net>
 
 =item *
 
-Ryan C. Thompson
+Ryan C. Thompson <rct at thompsonclan d0t org>
 
 =back
 

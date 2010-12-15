@@ -4,7 +4,7 @@ use warnings;
 
 package Pod::Markdown;
 BEGIN {
-  $Pod::Markdown::VERSION = '1.103490';
+  $Pod::Markdown::VERSION = '1.103491';
 }
 # ABSTRACT: Convert POD to Markdown
 use parent qw(Pod::Parser);
@@ -208,7 +208,7 @@ sub format_header {
 __END__
 =pod
 
-=for stopwords textblock
+=for stopwords textblock thompsonclan
 
 =head1 NAME
 
@@ -216,7 +216,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.103490
+version 1.103491
 
 =head1 SYNOPSIS
 
@@ -298,7 +298,7 @@ Victor Moral <victor@taquiones.net>
 
 =item *
 
-Ryan C. Thompson
+Ryan C. Thompson <rct at thompsonclan d0t org>
 
 =back
 

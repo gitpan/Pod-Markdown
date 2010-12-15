@@ -10,7 +10,7 @@ use ExtUtils::MakeMaker 6.31;
 
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'Convert POD to Markdown',
-  'AUTHOR' => 'Marcel Gruenauer <marcel@cpan.org>, Victor Moral <victor@taquiones.net>, Ryan C. Thompson',
+  'AUTHOR' => 'Marcel Gruenauer <marcel@cpan.org>, Victor Moral <victor@taquiones.net>, Ryan C. Thompson <rct at thompsonclan d0t org>',
   'BUILD_REQUIRES' => {
     'Carp' => '0',
     'English' => '0',
@@ -33,7 +33,7 @@ my %WriteMakefileArgs = (
     'Pod::Parser' => '0',
     'parent' => '0'
   },
-  'VERSION' => '1.103490',
+  'VERSION' => '1.103491',
   'test' => {
     'TESTS' => 't/*.t'
   }

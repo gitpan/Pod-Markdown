@@ -1,5 +1,8 @@
 Revision history for Perl extension Pod-Markdown
 
+1.103491  2010-12-15 23:03:02 Europe/Vienna
+    - added Ryan C. Thompson's email address
+
 1.103490  2010-12-15 16:12:31 Europe/Vienna
     - improved L<> link handling
     - Enabled interpolation of I<these thingies> in headers
