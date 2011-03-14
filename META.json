@@ -3,10 +3,11 @@
    "author" : [
       "Marcel Gruenauer <marcel@cpan.org>",
       "Victor Moral <victor@taquiones.net>",
-      "Ryan C. Thompson <rct at thompsonclan d0t org>"
+      "Ryan C. Thompson <rct at thompsonclan d0t org>",
+      "Aristotle Pagaltzis <pagaltzis@gmx.de>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200000, CPAN::Meta::Converter version 2.102400",
+   "generated_by" : "Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110580",
    "license" : [
       "perl_5"
    ],
@@ -43,7 +44,7 @@
    "provides" : {
       "Pod::Markdown" : {
          "file" : "lib/Pod/Markdown.pm",
-         "version" : "1.103491"
+         "version" : "1.110730"
       }
    },
    "release_status" : "stable",
@@ -59,6 +60,6 @@
          "web" : "http://github.com/hanekomu/Pod-Markdown"
       }
    },
-   "version" : "1.103491"
+   "version" : "1.110730"
 }
 
