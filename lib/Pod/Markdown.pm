@@ -12,7 +12,7 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.110731';
+  $Pod::Markdown::VERSION = '1.110732';
 }
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
@@ -136,7 +136,7 @@ sub command {
         $data->{searching} = '';
     } elsif ($command =~ m{item}xms) {
         $paragraph = $parser->interpolate($paragraph, $line_num);
-        $paragraph =~ s{^\h* \* \h*}{}xms;
+        $paragraph =~ s{^[ \t]* \* [ \t]*}{}xms;
 
         if ($data->{searching} eq 'listpara') {
             $data->{searching} = 'listheadhuddled';
@@ -275,7 +275,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.110731
+version 1.110732
 
 =head1 SYNOPSIS
 

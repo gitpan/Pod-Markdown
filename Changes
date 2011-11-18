@@ -1,5 +1,9 @@
 Revision history for Perl extension Pod-Markdown
 
+1.110732  2011-11-18T04:06:06Z
+    - Change /\h/ to /[ \t]/ for compatibility with older perls.
+      Thanks to David Golden for reporting [rt-71961]
+
 1.110731  2011-11-18T03:28:34Z
     - Ensure verbatim pod becomes verbatim markdown
       by increasing indentation if necessary [rt-72414]
