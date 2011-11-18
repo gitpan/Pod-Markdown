@@ -1,10 +1,21 @@
+#
+# This file is part of Pod-Markdown
+#
+# This software is copyright (c) 2004 by Marcel Gruenauer.
+#
+# This is free software; you can redistribute it and/or modify it under
+# the same terms as the Perl 5 programming language system itself.
+#
 use 5.008;
 use strict;
 use warnings;
 
 package Pod::Markdown;
+{
+  $Pod::Markdown::VERSION = '1.110731';
+}
 BEGIN {
-  $Pod::Markdown::VERSION = '1.110730';
+  $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
 }
 # ABSTRACT: Convert POD to Markdown
 use parent qw(Pod::Parser);
@@ -145,6 +156,24 @@ sub command {
 
 sub verbatim {
     my ($parser, $paragraph) = @_;
+
+    # POD verbatim can start with any number of spaces (or tabs)
+    # markdown should be 4 spaces (or a tab)
+    # so indent any paragraphs so that all lines start with at least 4 spaces
+    my @lines = split /\n/, $paragraph;
+    my $indent = ' ' x 4;
+    foreach my $line ( @lines ){
+        next unless $line =~ m/^( +)/;
+        # find the smallest indentation
+        $indent = $1 if length($1) < length($indent);
+    }
+    if( (my $smallest = length($indent)) < 4 ){
+        # invert to get what needs to be prepended
+        $indent = ' ' x (4 - $smallest);
+        # leave tabs alone
+        $paragraph = join "\n", map { /^\t/ ? $_ : $indent . $_ } @lines;
+    }
+
     $parser->_save($paragraph);
 }
 
@@ -233,7 +262,12 @@ sub format_header {
 __END__
 =pod
 
-=for stopwords textblock thompsonclan Pagaltzis
+=for :stopwords Marcel Gruenauer Victor Moral Ryan C. Thompson <rct at thompsonclan d0t
+org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS textblock cpan
+testmatrix url annocpan anno bugtracker rt cpants kwalitee diff irc mailto
+metadata placeholders
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -241,7 +275,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.110730
+version 1.110731
 
 =head1 SYNOPSIS
 
@@ -287,27 +321,83 @@ enclosed in angle brackets.
 
 Formats a header according to the given level.
 
-=head1 INSTALLATION
+=head1 SUPPORT
 
-See perlmodinstall for information and options on installing Perl modules.
+=head2 Perldoc
 
-=head1 BUGS AND LIMITATIONS
+You can find documentation for this module with the perldoc command.
 
-No bugs have been reported.
+  perldoc Pod::Markdown
 
-Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Markdown>.
+=head2 Websites
 
-=head1 AVAILABILITY
+The following websites have more information about this module, and may be of help to you. As always,
+in addition to those websites please use your favorite search engine to discover more resources.
 
-The latest version of this module is available from the Comprehensive Perl
-Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
-site near you, or see L<http://search.cpan.org/dist/Pod-Markdown/>.
+=over 4
 
-The development version lives at L<http://github.com/hanekomu/Pod-Markdown>
-and may be cloned from L<git://github.com/hanekomu/Pod-Markdown.git>.
-Instead of sending patches, please fork this project using the standard
-git and github infrastructure.
+=item *
+
+Search CPAN
+
+The default CPAN search engine, useful to view POD in HTML format.
+
+L<http://search.cpan.org/dist/Pod-Markdown>
+
+=item *
+
+RT: CPAN's Bug Tracker
+
+The RT ( Request Tracker ) website is the default bug/issue tracking system for CPAN.
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Pod-Markdown>
+
+=item *
+
+CPAN Ratings
+
+The CPAN Ratings is a website that allows community ratings and reviews of Perl modules.
+
+L<http://cpanratings.perl.org/d/Pod-Markdown>
+
+=item *
+
+CPAN Testers
+
+The CPAN Testers is a network of smokers who run automated tests on uploaded CPAN distributions.
+
+L<http://www.cpantesters.org/distro/P/Pod-Markdown>
+
+=item *
+
+CPAN Testers Matrix
+
+The CPAN Testers Matrix is a website that provides a visual overview of the test results for a distribution on various Perls/platforms.
+
+L<http://matrix.cpantesters.org/?dist=Pod-Markdown>
+
+=item *
+
+CPAN Testers Dependencies
+
+The CPAN Testers Dependencies is a website that shows a chart of the test results of all dependencies for a distribution.
+
+L<http://deps.cpantesters.org/?module=Pod::Markdown>
+
+=back
+
+=head2 Bugs / Feature Requests
+
+Please report any bugs or feature requests by email to C<bug-pod-markdown at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Pod-Markdown>. You will be automatically notified of any
+progress on the request by the system.
+
+=head2 Source Code
+
+
+L<https://github.com/rwstauner/Pod-Markdown>
+
+  git clone https://github.com/rwstauner/Pod-Markdown.git
 
 =head1 AUTHORS
 
@@ -328,6 +418,10 @@ Ryan C. Thompson <rct at thompsonclan d0t org>
 =item *
 
 Aristotle Pagaltzis <pagaltzis@gmx.de>
+
+=item *
+
+Randy Stauner <rwstauner@cpan.org>
 
 =back
 

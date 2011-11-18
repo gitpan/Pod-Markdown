@@ -2,40 +2,39 @@
 use strict;
 use warnings;
 
-BEGIN { require 5.008; }
+use 5.008;
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Convert POD to Markdown',
-  'AUTHOR' => 'Marcel Gruenauer <marcel@cpan.org>, Victor Moral <victor@taquiones.net>, Ryan C. Thompson <rct at thompsonclan d0t org>, Aristotle Pagaltzis <pagaltzis@gmx.de>',
-  'BUILD_REQUIRES' => {
-    'Carp' => '0',
-    'English' => '0',
-    'File::Find' => '0',
-    'File::Temp' => '0',
-    'Scalar::Util' => '0',
-    'Test::Differences' => '0',
-    'Test::More' => '0.94'
+  "ABSTRACT" => "Convert POD to Markdown",
+  "AUTHOR" => "Marcel Gruenauer <marcel\@cpan.org>, Victor Moral <victor\@taquiones.net>, Ryan C. Thompson <rct at thompsonclan d0t org>, Aristotle Pagaltzis <pagaltzis\@gmx.de>, Randy Stauner <rwstauner\@cpan.org>",
+  "BUILD_REQUIRES" => {
+    "File::Find" => 0,
+    "File::Temp" => 0,
+    "Test::Differences" => 0,
+    "Test::More" => "0.88"
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'Pod-Markdown',
-  'EXE_FILES' => [
-    'bin/pod2markdown'
+  "DISTNAME" => "Pod-Markdown",
+  "EXE_FILES" => [
+    "bin/pod2markdown"
   ],
-  'LICENSE' => 'perl',
-  'NAME' => 'Pod::Markdown',
-  'PREREQ_PM' => {
-    'Pod::Parser' => '0',
-    'parent' => '0'
+  "LICENSE" => "perl",
+  "NAME" => "Pod::Markdown",
+  "PREREQ_PM" => {
+    "Pod::Parser" => 0,
+    "parent" => 0,
+    "strict" => 0,
+    "warnings" => 0
   },
-  'VERSION' => '1.110730',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "1.110731",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 

@@ -1,5 +1,10 @@
 Revision history for Perl extension Pod-Markdown
 
+1.110731  2011-11-18T03:28:34Z
+    - Ensure verbatim pod becomes verbatim markdown
+      by increasing indentation if necessary [rt-72414]
+    - Co-maintainership granted to RWSTAUNER
+
 1.110730  2011-03-14 10:11:52 Europe/Vienna
     - make bulleted lists work at least minimally (thanks ap)
 
