@@ -12,13 +12,14 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.110732';
+  $Pod::Markdown::VERSION = '1.120000';
 }
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
 }
 # ABSTRACT: Convert POD to Markdown
 use parent qw(Pod::Parser);
+use Pod::ParseLink (); # core
 
 sub initialize {
     my $self = shift;
@@ -234,21 +235,39 @@ sub interior_sequence {
 
 sub _resolv_link {
     my ($cmd, $arg) = @_;
-    my $text = $arg =~ s"^(.+?)\|"" ? $1 : '';
 
-    if ($arg =~ m{^http|ftp}xms) { # direct link to a URL
-        $text ||= $arg;
-        return sprintf '[%s](%s)', $text, $arg;
-    } elsif ($arg =~ m{^/(.*)$}) {
-        $text ||= $1;
-        $text = $1;
-        return "[$text](\#pod_$1)";
-    } elsif ($arg =~ m{^(\w+(?:::\w+)*)$}) {
-        $text ||= $1;
-        return "[$text](http://search.cpan.org/perldoc?$1)";
+    my ($text, $inferred, $name, $section, $type) =
+      Pod::ParseLink::parselink($arg);
+    my $url = '';
+
+    # TODO: make url prefixes configurable
+
+    if ($type eq 'url') {
+        $url = $name;
+    } elsif ($type eq 'man') {
+        # stolen from Pod::Simple::(X)HTML
+        my ($page, $part) = $name =~ /^([^(]+)(?:[(](\d+)[)])?$/;
+        $url = 'http://man.he.net/man' . ($part || 1) . '/' . $page;
     } else {
+        if ($name) {
+            $url = 'http://search.cpan.org/perldoc?' . $name;
+        }
+        if ($section){
+            # TODO: sites/pod formatters differ on how to transform the section
+            # TODO: we could do it according to specified url prefix or pod formatter
+            # TODO: or allow a coderef?
+            # TODO: (Pod::Simple::XHTML:idify() for metacpan)
+            # TODO: (Pod::Simple::HTML section_escape/unicode_escape_url/section_url_escape for s.c.o.)
+            $url .= '#' . $section;
+        }
+    }
+
+    # if we don't know how to handle the url just print the pod back out
+    if (!$url) {
         return sprintf '%s<%s>', $cmd, $arg;
     }
+
+    return sprintf '[%s](%s)', ($text || $inferred), $url;
 }
 
 sub format_header {
@@ -275,7 +294,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.110732
+version 1.120000
 
 =head1 SYNOPSIS
 
