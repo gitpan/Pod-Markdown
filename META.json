@@ -42,7 +42,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Pod::ParseLink" : 0,
+            "Pod::ParseLink" : "1.10",
             "Pod::Parser" : 0,
             "parent" : 0,
             "perl" : "5.008",
@@ -62,7 +62,7 @@
    "provides" : {
       "Pod::Markdown" : {
          "file" : "lib/Pod/Markdown.pm",
-         "version" : "1.120000"
+         "version" : "1.120001"
       }
    },
    "release_status" : "stable",
@@ -78,7 +78,7 @@
          "web" : "https://github.com/rwstauner/Pod-Markdown"
       }
    },
-   "version" : "1.120000",
+   "version" : "1.120001",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -342,11 +342,6 @@
             "version" : "4.300003"
          },
          {
-            "class" : "Dist::Zilla::Plugin::ConfirmRelease",
-            "name" : "@Author::RWSTAUNER/ConfirmRelease",
-            "version" : "4.300003"
-         },
-         {
             "class" : "Dist::Zilla::Plugin::Git::Check",
             "name" : "@Author::RWSTAUNER/@Git/Check",
             "version" : "1.112510"
@@ -367,6 +362,11 @@
             "version" : "1.112510"
          },
          {
+            "class" : "Dist::Zilla::Plugin::ConfirmRelease",
+            "name" : "@Author::RWSTAUNER/ConfirmRelease",
+            "version" : "4.300003"
+         },
+         {
             "class" : "Dist::Zilla::Plugin::UploadToCPAN",
             "name" : "@Author::RWSTAUNER/UploadToCPAN",
             "version" : "4.300003"
@@ -375,6 +375,17 @@
             "class" : "Dist::Zilla::Plugin::InstallRelease",
             "name" : "@Author::RWSTAUNER/InstallRelease",
             "version" : "0.007"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "runtime",
+                  "type" : "requires"
+               }
+            },
+            "name" : "Prereqs",
+            "version" : "4.300003"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",

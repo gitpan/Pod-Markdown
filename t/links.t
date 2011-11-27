@@ -1,6 +1,6 @@
-#!/usr/bin/env perl
-use warnings;
+# vim: set ts=2 sts=2 sw=2 expandtab smarttab:
 use strict;
+use warnings;
 use Test::More;
 use Test::Differences;
 use Pod::Markdown;
@@ -9,6 +9,8 @@ my $pod_prefix = 'http://search.cpan.org/perldoc?';
 my $man_prefix = 'http://man.he.net/man';
 
 my $parser = Pod::Markdown->new;
+
+my $alt_text_for_urls = (Pod::ParseLink->VERSION >= 1.10);
 
 my @tests = (
 # in order of L<> examples in perlpod:
@@ -54,5 +56,11 @@ plan tests => scalar @tests;
 
 foreach my $test ( @tests ){
   my ($desc, $pod, $mkdn) = @$test;
-  is $parser->interior_sequence(L => $pod), $mkdn, $desc;
+
+  SKIP: {
+    skip 'alt text with schemes/absolute URLs not supported until perl 5.12 / Pod::ParseLink 1.10', 1
+      if !$alt_text_for_urls && $pod =~ m/\|\w+:[^:\s]\S*\z/; # /alt text \| url (not perl module)/ (regexp from perlpodspec)
+
+    is $parser->interior_sequence(L => $pod), $mkdn, $desc;
+  }
 }

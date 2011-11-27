@@ -27,13 +27,13 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Pod::Markdown",
   "PREREQ_PM" => {
-    "Pod::ParseLink" => 0,
+    "Pod::ParseLink" => "1.10",
     "Pod::Parser" => 0,
     "parent" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "1.120000",
+  "VERSION" => "1.120001",
   "test" => {
     "TESTS" => "t/*.t"
   }

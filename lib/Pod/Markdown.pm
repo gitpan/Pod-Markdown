@@ -12,7 +12,7 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.120000';
+  $Pod::Markdown::VERSION = '1.120001';
 }
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
@@ -294,7 +294,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.120000
+version 1.120001
 
 =head1 SYNOPSIS
 
