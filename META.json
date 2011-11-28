@@ -62,7 +62,7 @@
    "provides" : {
       "Pod::Markdown" : {
          "file" : "lib/Pod/Markdown.pm",
-         "version" : "1.120001"
+         "version" : "1.200000"
       }
    },
    "release_status" : "stable",
@@ -78,7 +78,7 @@
          "web" : "https://github.com/rwstauner/Pod-Markdown"
       }
    },
-   "version" : "1.120001",
+   "version" : "1.200000",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -229,7 +229,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Test::PodSpelling",
             "name" : "@Author::RWSTAUNER/Test::PodSpelling",
-            "version" : "2.001001"
+            "version" : "2.001002"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::UnusedVars",

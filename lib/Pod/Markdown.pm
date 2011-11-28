@@ -1,3 +1,4 @@
+# vim: set ts=4 sts=4 sw=4 expandtab smarttab:
 #
 # This file is part of Pod-Markdown
 #
@@ -12,7 +13,7 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.120001';
+  $Pod::Markdown::VERSION = '1.200000';
 }
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
@@ -54,14 +55,10 @@ sub as_markdown {
 sub _build_markdown_head {
     my $parser    = shift;
     my $data      = $parser->_private;
-    my $paragraph = '';
-    if (defined $data->{Title}) {
-        $paragraph .= sprintf '[[meta title="%s"]]', $data->{Title};
-    }
-    if (defined $data->{Author}) {
-        $paragraph .= "\n" . sprintf '[[meta author="%s"]]', $data->{Author};
-    }
-    return $paragraph;
+    return join "\n",
+        map  { qq![[meta \l$_="$data->{$_}"]]! }
+        grep { defined $data->{$_} }
+        qw( Title Author );
 }
 
 sub _save {
@@ -158,6 +155,10 @@ sub command {
 sub verbatim {
     my ($parser, $paragraph) = @_;
 
+    # NOTE: perlpodspec says parsers should expand tabs by default
+    # NOTE: Apparently Pod::Parser does not.  should we?
+    # NOTE: this might be s/^\t/" " x 8/e, but what about tabs inside the para?
+
     # POD verbatim can start with any number of spaces (or tabs)
     # markdown should be 4 spaces (or a tab)
     # so indent any paragraphs so that all lines start with at least 4 spaces
@@ -208,35 +209,61 @@ sub textblock {
 }
 
 sub interior_sequence {
-    my ($seq_command, $seq_argument, $pod_seq) = @_[1..3];
+    my ($self, $seq_command, $seq_argument, $pod_seq) = @_;
+
+    # nested links are not allowed
+    return sprintf '%s<%s>', $seq_command, $seq_argument
+        if $seq_command eq 'L' && $self->_private->{InsideLink};
+
+    my $i = 2;
     my %interiors = (
-        'I' => sub { return '_' . $_[1] . '_' },      # italic
-        'B' => sub { return '__' . $_[1] . '__' },    # bold
-        'C' => sub { return '`' . $_[1] . '`' },      # monospace
-        'F' => sub { return '`' . $_[1] . '`' },      # system path
-        'S' => sub { return '`' . $_[1] . '`' },      # code
+        'I' => sub { return '_'  . $_[$i] . '_'  },      # italic
+        'B' => sub { return '__' . $_[$i] . '__' },      # bold
+        'C' => sub { return '`'  . $_[$i] . '`'  },      # monospace
+        'F' => sub { return '`'  . $_[$i] . '`'  },      # system path
+        # non-breaking space
+        'S' => sub {
+            (my $s = $_[$i]) =~ s/ /&nbsp;/g;
+            return $s;
+        },
         'E' => sub {
-            my $charname = $_[1];
+            my $charname = $_[$i];
             return '<' if $charname eq 'lt';
             return '>' if $charname eq 'gt';
             return '|' if $charname eq 'verbar';
             return '/' if $charname eq 'sol';
+
+            # convert legacy charnames to more modern ones (see perlpodspec)
+            $charname =~ s/\A([lr])chevron\z/${1}aquo/;
+
+            return "&#$1;" if $charname =~ /^0(x[0-9a-fA-Z]+)$/;
+
+            $charname = oct($charname) if $charname =~ /^0\d+$/;
+
+            return "&#$charname;"      if $charname =~ /^\d+$/;
+
             return "&$charname;";
         },
         'L' => \&_resolv_link,
+        'X' => sub { '' },
+        'Z' => sub { '' },
     );
     if (exists $interiors{$seq_command}) {
         my $code = $interiors{$seq_command};
-        return $code->($seq_command, $seq_argument, $pod_seq);
+        return $code->($self, $seq_command, $seq_argument, $pod_seq);
     } else {
         return sprintf '%s<%s>', $seq_command, $seq_argument;
     }
 }
 
 sub _resolv_link {
-    my ($cmd, $arg) = @_;
+    my ($self, $cmd, $arg) = @_;
+
+    local $self->_private->{InsideLink} = 1;
 
     my ($text, $inferred, $name, $section, $type) =
+      # perlpodspec says formatting codes can occur in all parts of an L<>
+      map { $_ && $self->interpolate($_, 1) }
       Pod::ParseLink::parselink($arg);
     my $url = '';
 
@@ -246,8 +273,8 @@ sub _resolv_link {
         $url = $name;
     } elsif ($type eq 'man') {
         # stolen from Pod::Simple::(X)HTML
-        my ($page, $part) = $name =~ /^([^(]+)(?:[(](\d+)[)])?$/;
-        $url = 'http://man.he.net/man' . ($part || 1) . '/' . $page;
+        my ($page, $part) = $name =~ /\A([^(]+)(?:[(](\S*)[)])?/;
+        $url = 'http://man.he.net/man' . ($part || 1) . '/' . ($page || $name);
     } else {
         if ($name) {
             $url = 'http://search.cpan.org/perldoc?' . $name;
@@ -294,7 +321,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.120001
+version 1.200000
 
 =head1 SYNOPSIS
 

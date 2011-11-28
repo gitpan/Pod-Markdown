@@ -2,7 +2,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Differences;
 use Pod::Markdown;
 
 my $pod_prefix = 'http://search.cpan.org/perldoc?';
@@ -37,7 +36,8 @@ my @tests = (
 ['external http',                q<http://website>,         qq^[http://website](http://website)^],
 ['http, alt text (perl 5.12)',   q<web|http://website>,     qq^[web](http://website)^],
 
-['embedded codes',               q^the docs on C<$.>|perlvar/"$."^, qq^[the docs on C<\$.>](${pod_prefix}perlvar#\$.)^],
+['embedded codes',               q^the docs on C<$.>|perlvar/"$."^, qq^[the docs on `\$.`](${pod_prefix}perlvar#\$.)^],
+["don't expand nested L's",      q^perlpodspec/"About LE<lt>...E<gt> Codes"^, qq^["About L<...> Codes" in perlpodspec](${pod_prefix}perlpodspec#About L<...> Codes)^],
 
 # perlpodspec examples:
 ['name',                         q<Foo::Bar>,               qq^[Foo::Bar](${pod_prefix}Foo::Bar)^],
@@ -48,11 +48,24 @@ my @tests = (
 ['http',                         q<http://www.perl.org/>,   qq^[http://www.perl.org/](http://www.perl.org/)^],
 ['text|http',             q<Perl.org|http://www.perl.org/>, qq^[Perl.org](http://www.perl.org/)^],
 
+# how should these be handled?  these are unlikely/contrived occurrences and are mostly here for test coverage
+['man()',                        q<crontab()>,              qq^[crontab()](${man_prefix}1/crontab)^],
+['man(X)',                       q<crontab(X)>,             qq^[crontab(X)](${man_prefix}X/crontab)^],
+['man(2)-page',                  q<crontab(2)-page>,        qq^[crontab(2)-page](${man_prefix}2/crontab)^],
+['(X)man',                       q<(X)foo>,                 qq^[(X)foo](${man_prefix}1/(X)foo)^],
+['()',                           q<()>,                     qq^[()](${man_prefix}1/())^],
+
 # varies according to pod-to-html formatter:
 ['other/section name',           q<Other/Section Name>,     qq^["Section Name" in Other](${pod_prefix}Other#Section Name)^],
+
+# is there something better to do?
+['no url: empty',                q<>,                       qq^L<>^],
+['no url: pipe',                 q<|>,                      qq^L<|>^],
+['no url: slash',                q</>,                      qq^L</>^],
+['no url: quotes',               q<"">,                     qq^L<"">^],
 );
 
-plan tests => scalar @tests;
+plan tests => scalar @tests * 2;
 
 foreach my $test ( @tests ){
   my ($desc, $pod, $mkdn) = @$test;
@@ -61,6 +74,9 @@ foreach my $test ( @tests ){
     skip 'alt text with schemes/absolute URLs not supported until perl 5.12 / Pod::ParseLink 1.10', 1
       if !$alt_text_for_urls && $pod =~ m/\|\w+:[^:\s]\S*\z/; # /alt text \| url (not perl module)/ (regexp from perlpodspec)
 
-    is $parser->interior_sequence(L => $pod), $mkdn, $desc;
+    # interior_sequence is what we specifically want to test
+    is $parser->interior_sequence(L => $pod), $mkdn, $desc . ' (interior_sequence)';
+    # but interpolate() tests the pod parsing as a whole (which can expose recursion bugs, etc)
+    is $parser->interpolate("L<<< $pod >>>"), $mkdn, $desc . ' (interpolate)';
   }
 }

@@ -25,6 +25,4 @@ Aristotle
 Pagaltzis
 Randy
 Stauner
-Marcel
-Gruenauer
 

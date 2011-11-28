@@ -1,6 +1,6 @@
-#!/usr/bin/env perl
-use warnings;
+# vim: set ts=2 sts=2 sw=2 expandtab smarttab:
 use strict;
+use warnings;
 use Test::More tests => 1;
 use Test::Differences;
 use Pod::Markdown;
@@ -53,7 +53,8 @@ EOMARKDOWN
 1 while chomp $markdown;
 1 while chomp $expect;
 
-eq_or_diff $markdown, $expect, "this file's POD as markdown";
+eq_or_diff $markdown, $expect,
+  'preserve verbatim paragraphs of various initial whitespace combinations';
 
 __DATA__
 =head1 SYNOPSIS
