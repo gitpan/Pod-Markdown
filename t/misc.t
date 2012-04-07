@@ -42,6 +42,12 @@ _Italics_, __Bold__, `Code`, and [Links](${pod_prefix}Links) should work in body
 
 __Nested `codes`__ work, too
 
+## \\_Other\\_ \\*Characters\\* \\[Should\\](Be) \\`Escaped\\` in headers
+
+Inline `code _need not_ be escaped`.
+
+__Nested `c*des` \\_should\\_ be escaped__ (but not code).
+
 non-breaking space: foo&nbsp;bar.
 
 non-breaking code: `\$x&nbsp;?&nbsp;\$y&nbsp;:&nbsp;\$z` foo&nbsp;`bar`&nbsp;baz
@@ -64,6 +70,67 @@ item
 # Links
 
 [Formatting `C`odes](${pod_prefix}Links#L<...>)
+EOMARKDOWN
+$expect .= <<'EOMARKDOWN';
+
+# \*Special\* characters
+
+    foo_bar is the result of 4 * 4
+
+Regular characters like \*asterisks\* and \_\_underscores\_\_
+should be escaped in regular text paragraphs.
+Also \[brackets\],
+lists:
+
+\+ a
+\+ b
+
+\- a
+\- b
+
+\# fake headings
+\#\#\# fake headings \#\#\#
+
+\> Quote
+\> blocks
+\> 1. with
+\> 2. lists
+
+1996\. A year.
+
+\* Bird
+
+\* Magic
+
+\* List item
+
+        `code` block
+
+Hr's:
+
+\---
+
+\* \* \*
+
+Inline \`code\`;
+Links: \[Foo\] \[1\], \[Bar\](/baz)
+An image: !\[image\](/foo)
+backslash \\
+
+From http://daringfireball.net/projects/markdown/syntax:
+
+\\   backslash
+\`   backtick
+\*   asterisk
+\_   underscore
+{}  curly braces
+\[\]  square brackets
+()  parentheses
+\#   hash mark
+\+   plus sign
+\-   minus sign (hyphen)
+.   dot
+!   exclamation mark
 EOMARKDOWN
 
 1 while chomp $markdown;
@@ -103,6 +170,12 @@ I<Italics>, B<Bold>, C<Code>, and L<Links> should work in body text.
 
 B<< Nested C<codes> >> work, too
 
+=head2 _Other_ *Characters* [Should](Be) `Escaped` in headers
+
+Inline C<< code _need not_ be escaped >>.
+
+B<< Nested C<c*des> _should_ be escaped >> (but not code).
+
 non-breaking space: S<foo bar>.
 
 non-breaking code: S<C<$x ? $y : $z>> S<foo C<bar> baz>
@@ -138,3 +211,62 @@ list
 =head1 Links
 
 L<<< FormattZ<>ing C<C>odes|Links/"LE<lt>...E<gt>" >>>
+
+=head1 *Special* characters
+
+    foo_bar is the result of 4 * 4
+
+Regular characters like *asterisks* and __underscores__
+should be escaped in regular text paragraphs.
+Also [brackets],
+lists:
+
++ a
++ b
+
+- a
+- b
+
+# fake headings
+### fake headings ###
+
+> Quote
+> blocks
+> 1. with
+> 2. lists
+
+1996. A year.
+
+* Bird
+
+* Magic
+
+* List item
+
+        `code` block
+
+Hr's:
+
+---
+
+* * *
+
+Inline `code`;
+Links: [Foo] [1], [Bar](/baz)
+An image: ![image](/foo)
+backslash \
+
+From http://daringfireball.net/projects/markdown/syntax:
+
+\   backslash
+`   backtick
+*   asterisk
+_   underscore
+{}  curly braces
+[]  square brackets
+()  parentheses
+#   hash mark
++   plus sign
+-   minus sign (hyphen)
+.   dot
+!   exclamation mark

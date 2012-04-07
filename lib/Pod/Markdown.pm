@@ -13,7 +13,7 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.200000';
+  $Pod::Markdown::VERSION = '1.200001';
 }
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
@@ -91,7 +91,23 @@ sub _indent_text {
 sub _clean_text {
     my $text    = $_[1];
     my @trimmed = grep { $_; } split(/\n/, $text);
+
     return wantarray ? @trimmed : join("\n", @trimmed);
+}
+
+sub _escape {
+    local $_ = $_[1];
+
+    # do inline characters first
+    s/([][\\`*_#])/\\$1/g;
+
+    # escape unordered lists and blockquotes
+    s/^([-+*>])/\\$1/mg;
+
+    # escape dots that would wrongfully create numbered lists
+    s/^( (?:>\s+)? \d+ ) (\.\x20)/$1\\$2/xgm;
+
+    return $_;
 }
 
 sub command {
@@ -105,6 +121,7 @@ sub command {
     if ($command =~ m{head(\d)}xms) {
         my $level = $1;
 
+        $paragraph = $parser->_escape($paragraph);
         $paragraph = $parser->interpolate($paragraph, $line_num);
 
         # the headers never are indented
@@ -179,11 +196,24 @@ sub verbatim {
     $parser->_save($paragraph);
 }
 
+sub _escape_non_code {
+    my ($parser, $text, $ptree) = @_;
+    $text = $parser->_escape($text)
+        unless $ptree->isa('Pod::InteriorSequence') && $ptree->cmd_name eq 'C';
+    return $text;
+}
+
 sub textblock {
     my ($parser, $paragraph, $line_num) = @_;
     my $data = $parser->_private;
 
-    # interpolate the paragraph for embebed sequences
+    # escape markdown characters in text sequences except for inline code
+    $paragraph = join '', $parser->parse_text(
+        { -expand_text => '_escape_non_code' },
+        $paragraph, $line_num
+    )->raw_text;
+
+    # interpolate the paragraph for embedded sequences
     $paragraph = $parser->interpolate($paragraph, $line_num);
 
     # clean the empty lines
@@ -311,7 +341,7 @@ __END__
 =for :stopwords Marcel Gruenauer Victor Moral Ryan C. Thompson <rct at thompsonclan d0t
 org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS textblock cpan
 testmatrix url annocpan anno bugtracker rt cpants kwalitee diff irc mailto
-metadata placeholders
+metadata placeholders metacpan
 
 =encoding utf-8
 
@@ -321,7 +351,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.200000
+version 1.200001
 
 =head1 SYNOPSIS
 
@@ -332,6 +362,9 @@ version 1.200000
 =head1 DESCRIPTION
 
 This module subclasses L<Pod::Parser> and converts POD to Markdown.
+
+Literal characters in Pod that are special in Markdown
+(like *asterisks*) are backslash-escaped.
 
 =head1 METHODS
 

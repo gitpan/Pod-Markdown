@@ -1,5 +1,12 @@
 Revision history for Perl extension Pod-Markdown
 
+1.200001  2012-04-07T23:16:23Z
+
+    - Escape characters that are special to Markdown
+      (but normal in Pod) with backslashes.
+      Thanks to Florian (fschlich at zedat dot fu-berlin dot de)
+      for the initial patch (rt-75620).
+
 1.200000  2011-11-28T17:57:01Z
     [Enhancements]
     - Handle POD formatting codes embedded in links
