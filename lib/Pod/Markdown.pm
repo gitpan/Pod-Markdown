@@ -13,7 +13,7 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.200001';
+  $Pod::Markdown::VERSION = '1.300000';
 }
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
@@ -351,7 +351,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.200001
+version 1.300000
 
 =head1 SYNOPSIS
 
@@ -364,7 +364,8 @@ version 1.200001
 This module subclasses L<Pod::Parser> and converts POD to Markdown.
 
 Literal characters in Pod that are special in Markdown
-(like *asterisks*) are backslash-escaped.
+(like *asterisks*) are backslash-escaped
+(except those in verbatim blocks or C<< CE<lt>codeE<gt> >> sections).
 
 =head1 METHODS
 

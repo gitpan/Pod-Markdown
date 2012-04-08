@@ -62,7 +62,7 @@
    "provides" : {
       "Pod::Markdown" : {
          "file" : "lib/Pod/Markdown.pm",
-         "version" : "1.200001"
+         "version" : "1.300000"
       }
    },
    "release_status" : "stable",
@@ -78,7 +78,7 @@
          "web" : "https://github.com/rwstauner/Pod-Markdown"
       }
    },
-   "version" : "1.200001",
+   "version" : "1.300000",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

@@ -36,7 +36,7 @@ no_index:
 provides:
   Pod::Markdown:
     file: lib/Pod/Markdown.pm
-    version: 1.200001
+    version: 1.300000
 requires:
   Pod::ParseLink: 1.10
   Pod::Parser: 0
@@ -48,7 +48,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Markdown
   homepage: https://github.com/rwstauner/Pod-Markdown
   repository: https://github.com/rwstauner/Pod-Markdown.git
-version: 1.200001
+version: 1.300000
 x_Dist_Zilla:
   plugins:
     -
