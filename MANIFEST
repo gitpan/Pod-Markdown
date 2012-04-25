@@ -13,6 +13,7 @@ t/00-compile.t
 t/000-report-versions-tiny.t
 t/codes.t
 t/links.t
+t/lists.t
 t/meta.t
 t/misc.t
 t/verbatim.t

@@ -13,7 +13,7 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.300000';
+  $Pod::Markdown::VERSION = '1.301';
 }
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
@@ -150,7 +150,8 @@ sub command {
         $data->{Indent}--;
         $data->{searching} = '';
     } elsif ($command =~ m{item}xms) {
-        $paragraph = $parser->interpolate($paragraph, $line_num);
+        # this strips the POD bullet; the searching=listhead will insert markdown's
+        # FIXME: this does not account for numbered or named lists
         $paragraph =~ s{^[ \t]* \* [ \t]*}{}xms;
 
         if ($data->{searching} eq 'listpara') {
@@ -227,6 +228,8 @@ sub textblock {
         my $is_huddled = $1;
         $paragraph = sprintf '%s %s', $data->{ListType}, $paragraph;
         if ($is_huddled) {
+            # FIXME: what does this do?
+            # does this have something to do with preserving an indent?
             $paragraph = $parser->_unsave() . "\n" . $paragraph;
         }
         $data->{searching} = 'listpara';
@@ -351,7 +354,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.300000
+version 1.301
 
 =head1 SYNOPSIS
 

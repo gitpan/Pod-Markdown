@@ -38,7 +38,7 @@ pod2markdown - Convert POD text to Markdown
 
 =head1 VERSION
 
-version 1.300000
+version 1.301
 
 =head1 SYNOPSIS
 
