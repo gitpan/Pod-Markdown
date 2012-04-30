@@ -13,7 +13,7 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.301';
+  $Pod::Markdown::VERSION = '1.320';
 }
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
@@ -49,7 +49,7 @@ sub as_markdown {
     if ($args{with_meta}) {
         @header = $parser->_build_markdown_head;
     }
-    join("\n" x 2, @header, @{$lines});
+    join("\n" x 2, @header, @{$lines}) . "\n";
 }
 
 sub _build_markdown_head {
@@ -354,7 +354,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.301
+version 1.320
 
 =head1 SYNOPSIS
 
@@ -403,6 +403,16 @@ enclosed in angle brackets.
 =head2 format_header
 
 Formats a header according to the given level.
+
+=head1 SEE ALSO
+
+=over 4
+
+=item *
+
+L<pod2markdown> - script included for command line usage
+
+=back
 
 =head1 SUPPORT
 

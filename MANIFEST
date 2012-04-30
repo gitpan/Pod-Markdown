@@ -16,6 +16,7 @@ t/links.t
 t/lists.t
 t/meta.t
 t/misc.t
+t/pod2markdown.t
 t/verbatim.t
 xt/author/critic.t
 xt/author/pod-spell.t

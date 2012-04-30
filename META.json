@@ -53,6 +53,7 @@
       "test" : {
          "requires" : {
             "File::Find" : "0",
+            "File::Spec::Functions" : "0",
             "File::Temp" : "0",
             "Test::Differences" : "0",
             "Test::More" : "0.88"
@@ -62,7 +63,7 @@
    "provides" : {
       "Pod::Markdown" : {
          "file" : "lib/Pod/Markdown.pm",
-         "version" : "1.301"
+         "version" : "1.320"
       }
    },
    "release_status" : "stable",
@@ -78,7 +79,7 @@
          "web" : "https://github.com/rwstauner/Pod-Markdown"
       }
    },
-   "version" : "1.301",
+   "version" : "1.320",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

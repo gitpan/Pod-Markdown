@@ -50,6 +50,7 @@ sub pmver {
 
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
 eval { $v .= pmver('File::Find','any version') };
+eval { $v .= pmver('File::Spec::Functions','any version') };
 eval { $v .= pmver('File::Temp','any version') };
 eval { $v .= pmver('Pod::ParseLink','1.10') };
 eval { $v .= pmver('Pod::Parser','any version') };

@@ -13,6 +13,7 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Marcel Gruenauer <marcel\@cpan.org>, Victor Moral <victor\@taquiones.net>, Ryan C. Thompson <rct at thompsonclan d0t org>, Aristotle Pagaltzis <pagaltzis\@gmx.de>, Randy Stauner <rwstauner\@cpan.org>",
   "BUILD_REQUIRES" => {
     "File::Find" => 0,
+    "File::Spec::Functions" => 0,
     "File::Temp" => 0,
     "Test::Differences" => 0,
     "Test::More" => "0.88"
@@ -33,7 +34,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "1.301",
+  "VERSION" => "1.320",
   "test" => {
     "TESTS" => "t/*.t"
   }
