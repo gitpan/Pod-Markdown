@@ -10,7 +10,7 @@ bin/pod2markdown
 dist.ini
 lib/Pod/Markdown.pm
 t/00-compile.t
-t/000-report-versions-tiny.t
+t/00-report-prereqs.t
 t/codes.t
 t/links.t
 t/lists.t
@@ -21,6 +21,7 @@ t/verbatim.t
 xt/author/critic.t
 xt/author/pod-spell.t
 xt/author/test-eol.t
+xt/release/changes_has_content.t
 xt/release/cpan-changes.t
 xt/release/dist-manifest.t
 xt/release/distmeta.t

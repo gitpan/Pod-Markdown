@@ -36,6 +36,29 @@ my $expect = <<EOMARKDOWN;
 
         need double-indent inside lists
 
+## Unordered nested list
+
+__Note:__ Markdown does not support definition lists (word => text), just bullets or numbers
+
+- Head1
+
+    Paragraph should be indented.
+
+    - Head2
+
+        Paragraph should be indented.
+
+- Head1
+
+    Paragraph should be indented.
+
+## Unordered nested huddled list
+
+- This is a list head.
+- This is a list head, too.
+    - Again, this is a list head.
+- Finally, this is also a list head.
+
 ## Ordered
 
 1. B
@@ -46,8 +69,7 @@ EOMARKDOWN
 # the code looks very similar to some of the code in this module
 # but it appears to have some list processing methods...
 
-TODO: {
-  local $TODO = 'Lists only minimally supported';
+{
   eq_or_diff $markdown, $expect, "this file's POD as markdown";
 }
 
@@ -87,6 +109,56 @@ and I<in> B<paragraph> C<after> L<item>
 =item * verbatim paragraphs
 
   need double-indent inside lists
+
+=back
+
+=head2 Unordered nested list
+
+B<Note:> Markdown does not support definition lists (word => text), just bullets or numbers
+
+=over 4
+
+=item Head1
+
+Paragraph should be indented.
+
+=over 4
+
+=item Head2
+
+Paragraph should be indented.
+
+=back
+
+=item Head1
+
+Paragraph should be indented.
+
+=back
+
+=head2 Unordered nested huddled list
+
+=over 4
+
+=item *
+
+This is a list head.
+
+=item *
+
+This is a list head, too.
+
+=over 4
+
+=item *
+
+Again, this is a list head.
+
+=back
+
+=item *
+
+Finally, this is also a list head.
 
 =back
 
