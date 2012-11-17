@@ -39,7 +39,7 @@ no_index:
 provides:
   Pod::Markdown:
     file: lib/Pod/Markdown.pm
-    version: 1.321
+    version: 1.322
 requires:
   Pod::ParseLink: 1.10
   Pod::Parser: 0
@@ -51,7 +51,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Markdown
   homepage: https://github.com/rwstauner/Pod-Markdown
   repository: https://github.com/rwstauner/Pod-Markdown.git
-version: 1.321
+version: 1.322
 x_Dist_Zilla:
   perl:
     version: 5.014002
@@ -59,7 +59,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Git::NextVersion
       name: '@Author::RWSTAUNER/Git::NextVersion'
-      version: 2.001
+      version: 2.002
     -
       class: Dist::Zilla::Plugin::GenerateFile
       name: '@Author::RWSTAUNER/GenerateManifestSkip'
@@ -283,19 +283,19 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Git::Check
       name: '@Author::RWSTAUNER/@Git/Check'
-      version: 2.001
+      version: 2.002
     -
       class: Dist::Zilla::Plugin::Git::Commit
       name: '@Author::RWSTAUNER/@Git/Commit'
-      version: 2.001
+      version: 2.002
     -
       class: Dist::Zilla::Plugin::Git::Tag
       name: '@Author::RWSTAUNER/@Git/Tag'
-      version: 2.001
+      version: 2.002
     -
       class: Dist::Zilla::Plugin::Git::Push
       name: '@Author::RWSTAUNER/@Git/Push'
-      version: 2.001
+      version: 2.002
     -
       class: Dist::Zilla::Plugin::ConfirmRelease
       name: '@Author::RWSTAUNER/ConfirmRelease'

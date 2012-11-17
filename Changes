@@ -1,9 +1,16 @@
 Revision history for Perl extension Pod-Markdown
 
+1.322     2012-11-17T15:51:36Z
+
+    - Fix incorrect escaping of characters
+      that are inside inline code blocks in headers.
+      Thanks to Peter Vereshagin for the pull req (gh-3).
+
 1.321     2012-10-27T01:23:56Z
 
     - Improved list handling including support for ordered (numbered)
-      and nested lists.  Thanks Yasutaka ATARASHI!
+      and nested lists.
+      Thanks to Yasutaka ATARASHI for the pull req (gh-2).
 
 1.320     2012-04-30T23:30:11Z
 

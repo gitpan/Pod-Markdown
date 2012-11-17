@@ -13,9 +13,9 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.321';
+  $Pod::Markdown::VERSION = '1.322';
 }
-# git description: v1.320-6-g35fc58e
+# git description: v1.321-4-geed8814
 
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
@@ -127,8 +127,7 @@ sub command {
     if ($command =~ m{head(\d)}xms) {
         my $level = $1;
 
-        $paragraph = $parser->_escape($paragraph);
-        $paragraph = $parser->interpolate($paragraph, $line_num);
+        $paragraph = $parser->_escape_and_interpolate($paragraph, $line_num);
 
         # the headers never are indented
         $parser->_save($parser->format_header($level, $paragraph));
@@ -213,6 +212,21 @@ sub verbatim {
     $parser->_save($paragraph);
 }
 
+sub _escape_and_interpolate {
+    my ($parser, $paragraph, $line_num) = @_;
+
+    # escape markdown characters in text sequences except for inline code
+    $paragraph = join '', $parser->parse_text(
+        { -expand_text => '_escape_non_code' },
+        $paragraph, $line_num
+    )->raw_text;
+
+    # interpolate the paragraph for embedded sequences
+    $paragraph = $parser->interpolate($paragraph, $line_num);
+
+    return $paragraph;
+}
+
 sub _escape_non_code {
     my ($parser, $text, $ptree) = @_;
     $text = $parser->_escape($text)
@@ -225,14 +239,7 @@ sub textblock {
     my $data = $parser->_private;
     my $prelisthead;
 
-    # escape markdown characters in text sequences except for inline code
-    $paragraph = join '', $parser->parse_text(
-        { -expand_text => '_escape_non_code' },
-        $paragraph, $line_num
-    )->raw_text;
-
-    # interpolate the paragraph for embedded sequences
-    $paragraph = $parser->interpolate($paragraph, $line_num);
+    $paragraph = $parser->_escape_and_interpolate($paragraph, $line_num);
 
     # clean the empty lines
     $paragraph = $parser->_clean_text($paragraph);
@@ -372,7 +379,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.321
+version 1.322
 
 =head1 SYNOPSIS
 
