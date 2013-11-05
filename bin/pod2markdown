@@ -40,10 +40,13 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =for :stopwords Marcel Gruenauer Victor Moral Ryan C. Thompson <rct at thompsonclan d0t
 org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS
+<aristotle@cpan.org> Graham Ollis <plicease@cpan.org> Peter Vereshagin
+<veresc@cpan.org> <rthompson@cpan.org> Yasutaka ATARASHI <yakex@cpan.org>
+motemen <motemen@cpan.org> moznion <moznion@cpan.org>
 
 =head1 NAME
 
@@ -51,7 +54,7 @@ pod2markdown - Convert POD text to Markdown
 
 =head1 VERSION
 
-version 1.322
+version 1.400
 
 =head1 SYNOPSIS
 

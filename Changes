@@ -1,5 +1,18 @@
 Revision history for Perl extension Pod-Markdown
 
+1.400     2013-11-05T14:18:19Z
+
+    [Output Changes]
+    - Change perldoc urls to point to metacpan.
+
+    [Bug Fixes]
+    - Recognize numbered pod items that do not have a period.
+      Thanks to Yasutaka ATARASHI for the pull request (gh-4).
+    - Remove extraneous blank line between verbatim paragraphs.
+      Thanks to Graham Ollis for the pull request (gh-5).
+    - Do not escape markdown characters inside links (or file paths).
+      Thanks to Taiki Kawakami for the pull request (gh-6).
+
 1.322     2012-11-17T15:51:36Z
 
     - Fix incorrect escaping of characters
@@ -107,7 +120,7 @@ Revision history for Perl extension Pod-Markdown
     - converted the distribution to Dist::Zilla-style
     - bin/pod2markdown now uses '#!/usr/bin/env perl'
 
-0.02 Sun Oct  4 16:30:06 CEST 2009 (Marcel Gruenauer <marcel@cpan.org>)
+0.02 2009-10-04 16:30:06 CEST
     - E<foo> now outputs '&foo;'
     - only generate meta tags if asked to
 

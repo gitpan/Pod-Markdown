@@ -13,22 +13,47 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.322';
+  $Pod::Markdown::VERSION = '1.400';
 }
-# git description: v1.321-4-geed8814
+# git description: v1.322-20-g5d0671c
 
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
 }
 # ABSTRACT: Convert POD to Markdown
+
 use parent qw(Pod::Parser);
 use Pod::ParseLink (); # core
+
+our %URL_PREFIXES = (
+  sco      => 'http://search.cpan.org/perldoc?',
+  metacpan => 'https://metacpan.org/pod/',
+  man      => 'http://man.he.net/man',
+);
+$URL_PREFIXES{perldoc} = $URL_PREFIXES{metacpan};
 
 sub initialize {
     my $self = shift;
     $self->SUPER::initialize(@_);
+
+    for my $type ( qw( perldoc man ) ){
+        my $attr  = $type . '_url_prefix';
+        my $url = $self->{ $attr } || $type;
+        # Expand alias if defined (otherwise use url as is).
+        $self->{ $attr } = $URL_PREFIXES{ $url } || $url;
+    }
+
     $self->_private;
     $self;
+}
+
+
+# For consistency with Pod::Simple method names.
+sub perldoc_url_prefix {
+    return $_[0]->{perldoc_url_prefix};
+}
+sub man_url_prefix {
+    return $_[0]->{man_url_prefix};
 }
 
 sub _private {
@@ -116,6 +141,7 @@ sub _escape {
     return $_;
 }
 
+# Handles POD command paragraphs, denoted by a line beginning with C<=>.
 sub command {
     my ($parser, $command, $paragraph, $line_num) = @_;
     my $data = $parser->_private;
@@ -164,9 +190,9 @@ sub command {
         $data->{ListType} = '-'; # Default
         if($paragraph =~ m{^[ \t]* \* [ \t]*}xms) {
             $paragraph =~ s{^[ \t]* \* [ \t]*}{}xms;
-        } elsif($paragraph =~ m{^[ \t]* (\d+\.) [ \t]*}xms) {
-            $data->{ListType} = $1; # For numbered list only
-            $paragraph =~ s{^[ \t]* \d+\. [ \t]*}{}xms;
+        } elsif($paragraph =~ m{^[ \t]* (\d+)\.? [ \t]*}xms) {
+            $data->{ListType} = $1.'.'; # For numbered list only
+            $paragraph =~ s{^[ \t]* \d+\.? [ \t]*}{}xms;
         }
 
         if ($data->{searching} eq 'listpara') {
@@ -185,6 +211,7 @@ sub command {
     return;
 }
 
+# Handles verbatim text.
 sub verbatim {
     my ($parser, $paragraph) = @_;
 
@@ -209,6 +236,9 @@ sub verbatim {
         $paragraph = join "\n", map { /^\t/ ? $_ : $indent . $_ } @lines;
     }
 
+    if($parser->{_PREVIOUS} eq 'verbatim' && $parser->_private->{Text}->[-1] =~ /[ \t]+$/) {
+        $paragraph = $parser->_unsave . "\n" . $paragraph;
+    }
     $parser->_save($paragraph);
 }
 
@@ -229,11 +259,14 @@ sub _escape_and_interpolate {
 
 sub _escape_non_code {
     my ($parser, $text, $ptree) = @_;
-    $text = $parser->_escape($text)
-        unless $ptree->isa('Pod::InteriorSequence') && $ptree->cmd_name eq 'C';
-    return $text;
+
+    if ($ptree->isa('Pod::InteriorSequence') && $ptree->cmd_name =~ /\A[CFL]\z/) {
+        return $text;
+    }
+    return $parser->_escape($text);
 }
 
+# Handles normal blocks of POD.
 sub textblock {
     my ($parser, $paragraph, $line_num) = @_;
     my $data = $parser->_private;
@@ -266,6 +299,10 @@ sub textblock {
     $parser->_save($paragraph, $prelisthead);
 }
 
+# An interior sequence is an embedded command
+# within a block of text which appears as a command name - usually a single
+# uppercase character - followed immediately by a string of text which is
+# enclosed in angle brackets.
 sub interior_sequence {
     my ($self, $seq_command, $seq_argument, $pod_seq) = @_;
 
@@ -325,17 +362,15 @@ sub _resolv_link {
       Pod::ParseLink::parselink($arg);
     my $url = '';
 
-    # TODO: make url prefixes configurable
-
     if ($type eq 'url') {
         $url = $name;
     } elsif ($type eq 'man') {
         # stolen from Pod::Simple::(X)HTML
         my ($page, $part) = $name =~ /\A([^(]+)(?:[(](\S*)[)])?/;
-        $url = 'http://man.he.net/man' . ($part || 1) . '/' . ($page || $name);
+        $url = $self->man_url_prefix . ($part || 1) . '/' . ($page || $name);
     } else {
         if ($name) {
-            $url = 'http://search.cpan.org/perldoc?' . $name;
+            $url = $self->perldoc_url_prefix . $name;
         }
         if ($section){
             # TODO: sites/pod formatters differ on how to transform the section
@@ -355,6 +390,7 @@ sub _resolv_link {
     return sprintf '[%s](%s)', ($text || $inferred), $url;
 }
 
+# Formats a header according to the given level.
 sub format_header {
     my ($level, $paragraph) = @_[1,2];
     sprintf '%s %s', '#' x $level, $paragraph;
@@ -366,12 +402,15 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =for :stopwords Marcel Gruenauer Victor Moral Ryan C. Thompson <rct at thompsonclan d0t
-org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS textblock cpan
-testmatrix url annocpan anno bugtracker rt cpants kwalitee diff irc mailto
-metadata placeholders metacpan
+org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS ATARASHI motemen
+moznion Graham Ollis Peter Vereshagin Yasutaka <aristotle@cpan.org>
+<plicease@cpan.org> <veresc@cpan.org> <rthompson@cpan.org> <yakex@cpan.org>
+<motemen@cpan.org> <moznion@cpan.org> textblock cpan testmatrix url
+annocpan anno bugtracker rt cpants kwalitee diff irc mailto metadata
+placeholders metacpan
 
 =head1 NAME
 
@@ -379,7 +418,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.322
+version 1.400
 
 =head1 SYNOPSIS
 
@@ -392,42 +431,69 @@ version 1.322
 This module subclasses L<Pod::Parser> and converts POD to Markdown.
 
 Literal characters in Pod that are special in Markdown
-(like *asterisks*) are backslash-escaped
-(except those in verbatim blocks or C<< CE<lt>codeE<gt> >> sections).
+(like *asterisks*) are backslash-escaped when appropriate.
 
 =head1 METHODS
 
-=head2 initialize
+=head2 perldoc_url_prefix
 
-Initializes a newly constructed object.
+Returns the url prefix in use (after resolving shortcuts to urls).
+
+=head2 man_url_prefix
+
+Returns the url prefix in use for man pages.
+
+=head2 new
+
+The constructor accepts the following named arguments:
+
+=over 4
+
+=item *
+
+C<perldoc_url_prefix>
+
+This alters the perldoc urls that are created from C<< LE<lt>E<gt> >> codes.
+Can be:
+
+=over 4
+
+=item *
+
+C<metacpan> (shortcut for C<https://metacpan.org/pod/>)
+
+=item *
+
+C<sco> (shortcut for C<http://search.cpan.org/perldoc?>)
+
+=item *
+
+any url
+
+=back
+
+The default is C<metacpan>.
+
+    Pod::Markdown->new(perldoc_url_prefix => 'http://localhost/perl/pod');
+
+=item *
+
+C<man_url_prefix>
+
+This alters the man page urls that are created from C<< LE<lt>E<gt> >> codes.
+
+The default is C<http://man.he.net/man>.
+
+=back
 
 =head2 as_markdown
 
 Returns the parsed POD as Markdown. Takes named arguments. If the C<with_meta>
 argument is given a positive value, meta tags are generated as well.
 
-=head2 command
-
-Handles POD command paragraphs, denoted by a line beginning with C<=>.
-
-=head2 verbatim
-
-Handles verbatim text.
-
-=head2 textblock
-
-Handles normal blocks of POD.
-
-=head2 interior_sequence
-
-Handles interior sequences in POD. An interior sequence is an embedded command
-within a block of text which appears as a command name - usually a single
-uppercase character - followed immediately by a string of text which is
-enclosed in angle brackets.
-
-=head2 format_header
-
-Formats a header according to the given level.
+=for Pod::Coverage format_header
+initialize
+command interior_sequence textblock verbatim
 
 =head1 SEE ALSO
 
@@ -456,51 +522,11 @@ in addition to those websites please use your favorite search engine to discover
 
 =item *
 
-Search CPAN
+MetaCPAN
 
-The default CPAN search engine, useful to view POD in HTML format.
+A modern, open-source CPAN search engine, useful to view POD in HTML format.
 
-L<http://search.cpan.org/dist/Pod-Markdown>
-
-=item *
-
-RT: CPAN's Bug Tracker
-
-The RT ( Request Tracker ) website is the default bug/issue tracking system for CPAN.
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Pod-Markdown>
-
-=item *
-
-CPAN Ratings
-
-The CPAN Ratings is a website that allows community ratings and reviews of Perl modules.
-
-L<http://cpanratings.perl.org/d/Pod-Markdown>
-
-=item *
-
-CPAN Testers
-
-The CPAN Testers is a network of smokers who run automated tests on uploaded CPAN distributions.
-
-L<http://www.cpantesters.org/distro/P/Pod-Markdown>
-
-=item *
-
-CPAN Testers Matrix
-
-The CPAN Testers Matrix is a website that provides a visual overview of the test results for a distribution on various Perls/platforms.
-
-L<http://matrix.cpantesters.org/?dist=Pod-Markdown>
-
-=item *
-
-CPAN Testers Dependencies
-
-The CPAN Testers Dependencies is a website that shows a chart of the test results of all dependencies for a distribution.
-
-L<http://deps.cpantesters.org/?module=Pod::Markdown>
+L<http://metacpan.org/release/Pod-Markdown>
 
 =back
 
@@ -540,6 +566,40 @@ Aristotle Pagaltzis <pagaltzis@gmx.de>
 =item *
 
 Randy Stauner <rwstauner@cpan.org>
+
+=back
+
+=head1 CONTRIBUTORS
+
+=over 4
+
+=item *
+
+Aristotle Pagaltzis <aristotle@cpan.org>
+
+=item *
+
+Graham Ollis <plicease@cpan.org>
+
+=item *
+
+Peter Vereshagin <veresc@cpan.org>
+
+=item *
+
+Ryan C. Thompson <rthompson@cpan.org>
+
+=item *
+
+Yasutaka ATARASHI <yakex@cpan.org>
+
+=item *
+
+motemen <motemen@cpan.org>
+
+=item *
+
+moznion <moznion@cpan.org>
 
 =back
 

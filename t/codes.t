@@ -4,8 +4,7 @@ use warnings;
 use Test::More;
 use Pod::Markdown;
 
-my $pod_prefix = 'http://search.cpan.org/perldoc?';
-my $man_prefix = 'http://man.he.net/man';
+my $pod_prefix = Pod::Markdown->new->perldoc_url_prefix;
 
 my $parser = Pod::Markdown->new;
 
@@ -13,9 +12,11 @@ my @tests = (
   [I => q<italic>,          q{_italic_}],
   [B => q<bold>,            q{__bold__}],
   [C => q<code>,            q{`code`}],
+  [C => q<c*de>,            q{`c*de`}],
 
   # links tested extensively in t/links.t
   [L => q<link>,             "[link](${pod_prefix}link)"],
+  [L => q<star*>,            "[star*](${pod_prefix}star*)"],
 
   [E => q<lt>,              q{<}],
   [E => q<gt>,              q{>}],
@@ -34,6 +35,7 @@ my @tests = (
   [E => q<rchevrony>,       q{&rchevrony;}],
 
   [F => q<file.ext>,        q{`file.ext`}],
+  [F => q<file_path.ext>,   q{`file_path.ext`}],
   [S => q<$x ? $y : $z>,    q{$x&nbsp;?&nbsp;$y&nbsp;:&nbsp;$z}],
   [X => q<index>,           q{}],
   [Z => q<null>,            q{}],

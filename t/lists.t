@@ -5,7 +5,7 @@ use Test::More tests => 1;
 use Test::Differences;
 use Pod::Markdown;
 
-my $pod_prefix = 'http://search.cpan.org/perldoc?';
+my $pod_prefix = Pod::Markdown->new->perldoc_url_prefix;
 
 my $parser = Pod::Markdown->new;
 $parser->parse_from_filehandle(\*DATA);
@@ -60,6 +60,11 @@ __Note:__ Markdown does not support definition lists (word => text), just bullet
 - Finally, this is also a list head.
 
 ## Ordered
+
+1. B
+2. D
+
+## Ordered without dot
 
 1. B
 2. D
@@ -171,6 +176,20 @@ Finally, this is also a list head.
 B
 
 =item 2.
+
+D
+
+=back
+
+=head2 Ordered without dot
+
+=over
+
+=item 1
+
+B
+
+=item 2
 
 D
 
