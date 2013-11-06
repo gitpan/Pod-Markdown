@@ -55,7 +55,7 @@
       "runtime" : {
          "requires" : {
             "Pod::ParseLink" : "1.10",
-            "Pod::Parser" : "0",
+            "Pod::Parser" : "1.51",
             "parent" : "0",
             "perl" : "5.008",
             "strict" : "0",
@@ -83,7 +83,7 @@
    "provides" : {
       "Pod::Markdown" : {
          "file" : "lib/Pod/Markdown.pm",
-         "version" : "1.400"
+         "version" : "1.401"
       }
    },
    "release_status" : "stable",
@@ -99,7 +99,7 @@
          "web" : "https://github.com/rwstauner/Pod-Markdown"
       }
    },
-   "version" : "1.400",
+   "version" : "1.401",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.016003"
