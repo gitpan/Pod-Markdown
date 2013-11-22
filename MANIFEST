@@ -11,11 +11,13 @@ dist.ini
 lib/Pod/Markdown.pm
 t/00-compile.t
 t/00-report-prereqs.t
+t/basic.t
 t/codes.t
 t/links.t
 t/lists.t
 t/meta.t
 t/misc.t
+t/new.t
 t/pod2markdown.t
 t/verbatim.t
 xt/author/critic.t
@@ -31,7 +33,6 @@ xt/release/minimum-version.t
 xt/release/mojibake.t
 xt/release/no-tabs.t
 xt/release/pod-coverage.t
-xt/release/pod-linkcheck.t
 xt/release/pod-syntax.t
 xt/release/portability.t
 xt/release/synopsis.t

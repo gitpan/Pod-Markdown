@@ -37,9 +37,9 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "List::Util" => 0,
     "Test::Differences" => 0,
-    "Test::More" => 0
+    "Test::More" => "0.88"
   },
-  "VERSION" => "1.401",
+  "VERSION" => "1.500",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -57,7 +57,7 @@ my %FallbackPrereqs = (
   "Pod::ParseLink" => "1.10",
   "Pod::Parser" => "1.51",
   "Test::Differences" => 0,
-  "Test::More" => 0,
+  "Test::More" => "0.88",
   "parent" => 0,
   "strict" => 0,
   "warnings" => 0

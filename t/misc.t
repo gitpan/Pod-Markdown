@@ -5,9 +5,12 @@ use Test::More tests => 1;
 use Test::Differences;
 use Pod::Markdown;
 
-my $pod_prefix = Pod::Markdown->new->perldoc_url_prefix;
+my $parser = Pod::Markdown->new(
+  # Just return the raw fragment so we know that it isn't unexpectedly mangled.
+  perldoc_fragment_format => sub { $_ },
+);
+my $pod_prefix = $parser->perldoc_url_prefix;
 
-my $parser = Pod::Markdown->new;
 $parser->parse_from_filehandle(\*DATA);
 my $markdown = $parser->as_markdown;
 my $expect = <<EOMARKDOWN;
@@ -48,7 +51,7 @@ Inline `code _need not_ be escaped`.
 
 Inline [link_should_not_be_escaped](${pod_prefix}link_should_not_be_escaped).
 
-Inline `filename_should_not_be_escaped`.
+Inline `filename_should_not_be_escaped` because it is a code span.
 
 ### Heading `code _need not_ be escaped, either`.
 
@@ -59,6 +62,10 @@ non-breaking space: foo&nbsp;bar.
 non-breaking code: `\$x&nbsp;?&nbsp;\$y&nbsp;:&nbsp;\$z` foo&nbsp;`bar`&nbsp;baz
 
     verbatim para B<with> C<< E<verbar> >> codes
+
+A `` code span with `backticks` inside ``.
+
+A ```` code span with triple ``` inside ````.
 
 - This
 - is
@@ -180,7 +187,7 @@ Inline C<< code _need not_ be escaped >>.
 
 Inline L<< link_should_not_be_escaped >>.
 
-Inline F<< filename_should_not_be_escaped >>.
+Inline F<< filename_should_not_be_escaped >> because it is a code span.
 
 =head3 Heading C<< code _need not_ be escaped, either >>.
 
@@ -191,6 +198,10 @@ non-breaking space: S<foo bar>.
 non-breaking code: S<C<$x ? $y : $z>> S<foo C<bar> baz>
 
  verbatim para B<with> C<< E<verbar> >> codes
+
+A C<< code span with `backticks` inside >>.
+
+A C<< code span with triple ``` inside >>.
 
 =over 4
 
