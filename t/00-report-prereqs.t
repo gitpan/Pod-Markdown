@@ -14,6 +14,7 @@ use List::Util qw/max/;
 my @modules = qw(
   CPAN::Meta
   CPAN::Meta::Requirements
+  Exporter
   ExtUtils::MakeMaker
   File::Spec
   File::Spec::Functions
@@ -21,13 +22,16 @@ my @modules = qw(
   IO::Handle
   IPC::Open3
   List::Util
-  Pod::ParseLink
-  Pod::Parser
+  Pod::Simple
+  Pod::Simple::Methody
+  Symbol
   Test::Differences
   Test::More
+  lib
   parent
   perl
   strict
+  utf8
   warnings
 );
 
