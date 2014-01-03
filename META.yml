@@ -45,7 +45,7 @@ no_index:
 provides:
   Pod::Markdown:
     file: lib/Pod/Markdown.pm
-    version: 1.990
+    version: 1.991
 requires:
   Pod::Simple: 3.14
   Pod::Simple::Methody: 0
@@ -57,7 +57,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Markdown
   homepage: https://github.com/rwstauner/Pod-Markdown
   repository: https://github.com/rwstauner/Pod-Markdown.git
-version: 1.990
+version: 1.991
 x_Dist_Zilla:
   perl:
     version: 5.016003

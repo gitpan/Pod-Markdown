@@ -13,9 +13,9 @@ use warnings;
 
 package Pod::Markdown;
 {
-  $Pod::Markdown::VERSION = '1.990'; # TRIAL
+  $Pod::Markdown::VERSION = '1.991'; # TRIAL
 }
-# git description: v1.500-39-g59c461c
+# git description: v1.990-1-g00a999c
 
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
@@ -900,7 +900,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 1.990
+version 1.991
 
 =head1 SYNOPSIS
 
