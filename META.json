@@ -8,7 +8,7 @@
       "Randy Stauner <rwstauner@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.012, CPAN::Meta::Converter version 2.133380",
+   "generated_by" : "Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.140640",
    "license" : [
       "perl_5"
    ],
@@ -88,7 +88,7 @@
    "provides" : {
       "Pod::Markdown" : {
          "file" : "lib/Pod/Markdown.pm",
-         "version" : "2.000"
+         "version" : "2.001"
       }
    },
    "release_status" : "stable",
@@ -104,7 +104,7 @@
          "web" : "https://github.com/rwstauner/Pod-Markdown"
       }
    },
-   "version" : "2.000",
+   "version" : "2.001",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.016003"
@@ -121,47 +121,57 @@
                }
             },
             "name" : "Bootstrap::lib",
-            "version" : "0.04000002"
+            "version" : "1.000001"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::NextVersion",
+            "config" : {
+               "Dist::Zilla::Plugin::Git::NextVersion" : {
+                  "first_version" : "0.001",
+                  "version_by_branch" : "0",
+                  "version_regexp" : "(?^:^v(.+)$)"
+               },
+               "Dist::Zilla::Role::Git::Repo" : {
+                  "repo_root" : "."
+               }
+            },
             "name" : "@Author::RWSTAUNER/Git::NextVersion",
-            "version" : "2.019"
+            "version" : "2.022"
          },
          {
             "class" : "Dist::Zilla::Plugin::GenerateFile",
             "name" : "@Author::RWSTAUNER/GenerateManifestSkip",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::GatherDir",
             "name" : "@Author::RWSTAUNER/GatherDir",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneCruft",
             "name" : "@Author::RWSTAUNER/PruneCruft",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::ManifestSkip",
             "name" : "@Author::RWSTAUNER/ManifestSkip",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneFiles",
             "name" : "@Author::RWSTAUNER/PruneDevelCoverDatabase",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneFiles",
             "name" : "@Author::RWSTAUNER/PruneCodeStatCollection",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneFiles",
             "name" : "@Author::RWSTAUNER/PruneTags",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::Authority",
@@ -171,7 +181,7 @@
          {
             "class" : "Dist::Zilla::Plugin::NextRelease",
             "name" : "@Author::RWSTAUNER/NextRelease",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Describe",
@@ -181,7 +191,7 @@
          {
             "class" : "Dist::Zilla::Plugin::PkgVersion",
             "name" : "@Author::RWSTAUNER/PkgVersion",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prepender",
@@ -201,9 +211,9 @@
                   ],
                   "plugins" : [
                      {
-                        "class" : "Pod::Weaver::Plugin::Encoding",
-                        "name" : "@Author::RWSTAUNER/Encoding",
-                        "version" : "0.02"
+                        "class" : "Pod::Weaver::Plugin::SingleEncoding",
+                        "name" : "@Author::RWSTAUNER/SingleEncoding",
+                        "version" : "4.006"
                      },
                      {
                         "class" : "Pod::Weaver::Plugin::WikiDoc",
@@ -329,12 +339,12 @@
          {
             "class" : "Dist::Zilla::Plugin::License",
             "name" : "@Author::RWSTAUNER/License",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::Readme",
             "name" : "@Author::RWSTAUNER/Readme",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::ReadmeAnyFromPod",
@@ -349,7 +359,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Repository",
             "name" : "@Author::RWSTAUNER/Repository",
-            "version" : "0.19"
+            "version" : "0.20"
          },
          {
             "class" : "Dist::Zilla::Plugin::GithubMeta",
@@ -364,12 +374,12 @@
          {
             "class" : "Dist::Zilla::Plugin::AutoPrereqs",
             "name" : "@Author::RWSTAUNER/AutoPrereqs",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaNoIndex",
             "name" : "@Author::RWSTAUNER/MetaNoIndex",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaProvides::Package",
@@ -379,7 +389,7 @@
                      {
                         "class" : "Dist::Zilla::Plugin::FinderCode",
                         "name" : "@Author::RWSTAUNER/MetaProvides::Package/AUTOVIV/:InstallModulesPM",
-                        "version" : "5.012"
+                        "version" : "5.015"
                      }
                   ]
                },
@@ -390,7 +400,7 @@
                }
             },
             "name" : "@Author::RWSTAUNER/MetaProvides::Package",
-            "version" : "1.15000003"
+            "version" : "2.000001"
          },
          {
             "class" : "Dist::Zilla::Plugin::MinimumPerl",
@@ -400,32 +410,37 @@
          {
             "class" : "Dist::Zilla::Plugin::MetaConfig",
             "name" : "@Author::RWSTAUNER/MetaConfig",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaYAML",
             "name" : "@Author::RWSTAUNER/MetaYAML",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaJSON",
             "name" : "@Author::RWSTAUNER/MetaJSON",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::ExecDir",
             "name" : "@Author::RWSTAUNER/ExecDir",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::ShareDir",
             "name" : "@Author::RWSTAUNER/ShareDir",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::MakeMaker",
+            "config" : {
+               "Dist::Zilla::Role::TestRunner" : {
+                  "default_jobs" : 1
+               }
+            },
             "name" : "@Author::RWSTAUNER/MakeMaker",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::ReportPrereqs",
@@ -440,7 +455,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Test::PodSpelling",
             "name" : "@Author::RWSTAUNER/Test::PodSpelling",
-            "version" : "2.006002"
+            "version" : "2.006007"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::UnusedVars",
@@ -460,7 +475,7 @@
          {
             "class" : "Dist::Zilla::Plugin::PodCoverageTests",
             "name" : "@Author::RWSTAUNER/@TestingMania/PodCoverageTests",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::Perl::Critic",
@@ -475,7 +490,7 @@
          {
             "class" : "Dist::Zilla::Plugin::MetaTests",
             "name" : "@Author::RWSTAUNER/@TestingMania/MetaTests",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::Kwalitee",
@@ -485,7 +500,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Test::EOL",
             "name" : "@Author::RWSTAUNER/@TestingMania/Test::EOL",
-            "version" : "0.10"
+            "version" : "0.12"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::Synopsis",
@@ -516,7 +531,7 @@
                }
             },
             "name" : "@Author::RWSTAUNER/@TestingMania/Test::Compile",
-            "version" : "2.039"
+            "version" : "2.040"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::MinimumVersion",
@@ -531,12 +546,13 @@
                      ":InstallModules"
                   ],
                   "script_finder" : [
-                     ":ExecFiles"
+                     ":ExecFiles",
+                     ":TestFiles"
                   ]
                }
             },
             "name" : "@Author::RWSTAUNER/@TestingMania/NoTabsTests",
-            "version" : "0.06"
+            "version" : "0.07"
          },
          {
             "class" : "Dist::Zilla::Plugin::MojibakeTests",
@@ -546,17 +562,17 @@
          {
             "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
             "name" : "@Author::RWSTAUNER/@TestingMania/PodSyntaxTests",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::Manifest",
             "name" : "@Author::RWSTAUNER/Manifest",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::CheckExtraTests",
             "name" : "@Author::RWSTAUNER/CheckExtraTests",
-            "version" : "0.016"
+            "version" : "0.021"
          },
          {
             "class" : "Dist::Zilla::Plugin::CheckChangesHasContent",
@@ -576,37 +592,101 @@
          {
             "class" : "Dist::Zilla::Plugin::TestRelease",
             "name" : "@Author::RWSTAUNER/TestRelease",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Check",
+            "config" : {
+               "Dist::Zilla::Plugin::Git::Check" : {
+                  "untracked_files" : "die"
+               },
+               "Dist::Zilla::Role::Git::DirtyFiles" : {
+                  "allow_dirty" : [
+                     "Changes",
+                     "README.mkdn",
+                     "README.pod",
+                     "README.mkdn",
+                     "README.mkdn"
+                  ],
+                  "allow_dirty_match" : [],
+                  "changelog" : "Changes"
+               },
+               "Dist::Zilla::Role::Git::Repo" : {
+                  "repo_root" : "."
+               }
+            },
             "name" : "@Author::RWSTAUNER/@Git/Check",
-            "version" : "2.019"
+            "version" : "2.022"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Commit",
+            "config" : {
+               "Dist::Zilla::Plugin::Git::Commit" : {
+                  "add_files_in" : [],
+                  "commit_msg" : "v%v%t%n%n%c",
+                  "time_zone" : "local"
+               },
+               "Dist::Zilla::Role::Git::DirtyFiles" : {
+                  "allow_dirty" : [
+                     "Changes",
+                     "README.mkdn",
+                     "README.pod",
+                     "README.mkdn",
+                     "README.mkdn"
+                  ],
+                  "allow_dirty_match" : [],
+                  "changelog" : "Changes"
+               },
+               "Dist::Zilla::Role::Git::Repo" : {
+                  "repo_root" : "."
+               }
+            },
             "name" : "@Author::RWSTAUNER/@Git/Commit",
-            "version" : "2.019"
+            "version" : "2.022"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Tag",
+            "config" : {
+               "Dist::Zilla::Plugin::Git::Tag" : {
+                  "branch" : null,
+                  "signed" : 0,
+                  "tag" : "v2.001",
+                  "tag_format" : "v%v",
+                  "tag_message" : "v%v",
+                  "time_zone" : "local"
+               },
+               "Dist::Zilla::Role::Git::Repo" : {
+                  "repo_root" : "."
+               }
+            },
             "name" : "@Author::RWSTAUNER/@Git/Tag",
-            "version" : "2.019"
+            "version" : "2.022"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Push",
+            "config" : {
+               "Dist::Zilla::Plugin::Git::Push" : {
+                  "push_to" : [
+                     "origin"
+                  ],
+                  "remotes_must_exist" : 1
+               },
+               "Dist::Zilla::Role::Git::Repo" : {
+                  "repo_root" : "."
+               }
+            },
             "name" : "@Author::RWSTAUNER/@Git/Push",
-            "version" : "2.019"
+            "version" : "2.022"
          },
          {
             "class" : "Dist::Zilla::Plugin::ConfirmRelease",
             "name" : "@Author::RWSTAUNER/ConfirmRelease",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::UploadToCPAN",
             "name" : "@Author::RWSTAUNER/UploadToCPAN",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::InstallRelease",
@@ -616,47 +696,47 @@
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":InstallModules",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":IncModules",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":TestFiles",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ExecFiles",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ShareFiles",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":MainModule",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":AllFiles",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":NoFiles",
-            "version" : "5.012"
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : "@Author::RWSTAUNER/MetaProvides::Package/AUTOVIV/:InstallModulesPM",
-            "version" : "5.012"
+            "version" : "5.015"
          }
       ],
       "zilla" : {
@@ -664,13 +744,14 @@
          "config" : {
             "is_trial" : "0"
          },
-         "version" : "5.012"
+         "version" : "5.015"
       }
    },
    "x_authority" : "cpan:RWSTAUNER",
    "x_contributors" : [
       "Aristotle Pagaltzis <aristotle@cpan.org>",
       "Graham Ollis <plicease@cpan.org>",
+      "Mike Covington <mfcovington@gmail.com>",
       "Peter Vereshagin <veresc@cpan.org>",
       "Ryan C. Thompson <rthompson@cpan.org>",
       "Yasutaka ATARASHI <yakex@cpan.org>",

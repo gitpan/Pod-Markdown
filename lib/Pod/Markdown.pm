@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Pod::Markdown;
-# git description: v1.991-0-ge2edfd9
-$Pod::Markdown::VERSION = '2.000';
+# git description: v2.000-3-ga15fde1
+$Pod::Markdown::VERSION = '2.001';
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
 }
@@ -284,7 +284,7 @@ sub _escape_paragraph_markdown {
     local $_ = $_[1];
 
     # Escape headings, horizontal rules, (unordered) lists, and blockquotes.
-    s/^([-+*#>])/\\$1/mg;
+    s/^([-+#>])/\\$1/mg;
 
     # Markdown doesn't support backslash escapes for equal signs
     # even though they can be used to underline a header.
@@ -627,8 +627,7 @@ sub   end_Data {
 
 ## Codes ##
 
-# TODO: change to '**' ?
-sub start_B { $_[0]->_save('__') }
+sub start_B { $_[0]->_save('**') }
 sub   end_B { $_[0]->start_B()   }
 
 sub start_I { $_[0]->_save('_') }
@@ -884,12 +883,12 @@ __END__
 =encoding UTF-8
 
 =for :stopwords Marcel Gruenauer Victor Moral Ryan C. Thompson <rct at thompsonclan d0t
-org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS ATARASHI motemen
-moznion Graham Ollis Peter Vereshagin Yasutaka <aristotle@cpan.org>
-<plicease@cpan.org> <veresc@cpan.org> <rthompson@cpan.org> <yakex@cpan.org>
-<motemen@cpan.org> <moznion@cpan.org> html cpan testmatrix url annocpan
-anno bugtracker rt cpants kwalitee diff irc mailto metadata placeholders
-metacpan
+org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS Yasutaka ATARASHI
+motemen moznion Graham Ollis Mike Covington Peter Vereshagin
+<aristotle@cpan.org> <plicease@cpan.org> <mfcovington@gmail.com>
+<veresc@cpan.org> <rthompson@cpan.org> <yakex@cpan.org> <motemen@cpan.org>
+<moznion@cpan.org> html cpan testmatrix url annocpan anno bugtracker rt
+cpants kwalitee diff irc mailto metadata placeholders metacpan
 
 =head1 NAME
 
@@ -897,7 +896,7 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 2.000
+version 2.001
 
 =head1 SYNOPSIS
 
@@ -1227,6 +1226,10 @@ Aristotle Pagaltzis <aristotle@cpan.org>
 =item *
 
 Graham Ollis <plicease@cpan.org>
+
+=item *
+
+Mike Covington <mfcovington@gmail.com>
 
 =item *
 
