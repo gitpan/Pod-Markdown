@@ -24,7 +24,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: '6.30'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.140640'
+generated_by: 'Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.141520'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -46,7 +46,7 @@ no_index:
 provides:
   Pod::Markdown:
     file: lib/Pod/Markdown.pm
-    version: '2.001'
+    version: '2.002'
 requires:
   Pod::Simple: '3.14'
   Pod::Simple::Methody: '0'
@@ -58,10 +58,10 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Markdown
   homepage: https://github.com/rwstauner/Pod-Markdown
   repository: https://github.com/rwstauner/Pod-Markdown.git
-version: '2.001'
+version: '2.002'
 x_Dist_Zilla:
   perl:
-    version: '5.016003'
+    version: '5.020000'
   plugins:
     -
       class: Dist::Zilla::Plugin::Bootstrap::lib
@@ -83,35 +83,35 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::RWSTAUNER/Git::NextVersion'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::GenerateFile
       name: '@Author::RWSTAUNER/GenerateManifestSkip'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::GatherDir
       name: '@Author::RWSTAUNER/GatherDir'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@Author::RWSTAUNER/PruneCruft'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::ManifestSkip
       name: '@Author::RWSTAUNER/ManifestSkip'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::PruneFiles
       name: '@Author::RWSTAUNER/PruneDevelCoverDatabase'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::PruneFiles
       name: '@Author::RWSTAUNER/PruneCodeStatCollection'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::PruneFiles
       name: '@Author::RWSTAUNER/PruneTags'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::Authority
       name: '@Author::RWSTAUNER/Authority'
@@ -119,7 +119,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::NextRelease
       name: '@Author::RWSTAUNER/NextRelease'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::Git::Describe
       name: '@Author::RWSTAUNER/Git::Describe'
@@ -127,7 +127,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::PkgVersion
       name: '@Author::RWSTAUNER/PkgVersion'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::Prepender
       name: '@Author::RWSTAUNER/Prepender'
@@ -243,15 +243,15 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::License
       name: '@Author::RWSTAUNER/License'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::Readme
       name: '@Author::RWSTAUNER/Readme'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::ReadmeAnyFromPod
       name: '@Author::RWSTAUNER/ReadmeAnyFromPod'
-      version: '0.133360'
+      version: '0.141760'
     -
       class: Dist::Zilla::Plugin::Bugtracker
       name: '@Author::RWSTAUNER/Bugtracker'
@@ -263,19 +263,19 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::GithubMeta
       name: '@Author::RWSTAUNER/GithubMeta'
-      version: '0.42'
+      version: '0.46'
     -
       class: Dist::Zilla::Plugin::ContributorsFromGit
       name: '@Author::RWSTAUNER/ContributorsFromGit'
-      version: '0.006'
+      version: '0.013'
     -
       class: Dist::Zilla::Plugin::AutoPrereqs
       name: '@Author::RWSTAUNER/AutoPrereqs'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::MetaNoIndex
       name: '@Author::RWSTAUNER/MetaNoIndex'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::MetaProvides::Package
       config:
@@ -284,7 +284,7 @@ x_Dist_Zilla:
             -
               class: Dist::Zilla::Plugin::FinderCode
               name: '@Author::RWSTAUNER/MetaProvides::Package/AUTOVIV/:InstallModulesPM'
-              version: '5.015'
+              version: '5.019'
         Dist::Zilla::Role::MetaProvider::Provider:
           inherit_missing: '1'
           inherit_version: '1'
@@ -298,30 +298,30 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::MetaConfig
       name: '@Author::RWSTAUNER/MetaConfig'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::MetaYAML
       name: '@Author::RWSTAUNER/MetaYAML'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::MetaJSON
       name: '@Author::RWSTAUNER/MetaJSON'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::ExecDir
       name: '@Author::RWSTAUNER/ExecDir'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::ShareDir
       name: '@Author::RWSTAUNER/ShareDir'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::MakeMaker
       config:
         Dist::Zilla::Role::TestRunner:
           default_jobs: 1
       name: '@Author::RWSTAUNER/MakeMaker'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::Test::ReportPrereqs
       name: '@Author::RWSTAUNER/Test::ReportPrereqs'
@@ -333,55 +333,27 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Test::PodSpelling
       name: '@Author::RWSTAUNER/Test::PodSpelling'
-      version: '2.006007'
-    -
-      class: Dist::Zilla::Plugin::Test::UnusedVars
-      name: '@Author::RWSTAUNER/@TestingMania/Test::UnusedVars'
-      version: '2.000005'
-    -
-      class: Dist::Zilla::Plugin::Test::Portability
-      name: '@Author::RWSTAUNER/@TestingMania/Test::Portability'
-      version: '2.000005'
-    -
-      class: Dist::Zilla::Plugin::Test::Version
-      name: '@Author::RWSTAUNER/@TestingMania/Test::Version'
-      version: '0.002004'
-    -
-      class: Dist::Zilla::Plugin::PodCoverageTests
-      name: '@Author::RWSTAUNER/@TestingMania/PodCoverageTests'
-      version: '5.015'
-    -
-      class: Dist::Zilla::Plugin::Test::Perl::Critic
-      name: '@Author::RWSTAUNER/@TestingMania/Test::Perl::Critic'
-      version: '2.112410'
+      version: '2.006008'
     -
       class: Dist::Zilla::Plugin::Test::CPAN::Changes
       name: '@Author::RWSTAUNER/@TestingMania/Test::CPAN::Changes'
       version: '0.008'
     -
-      class: Dist::Zilla::Plugin::MetaTests
-      name: '@Author::RWSTAUNER/@TestingMania/MetaTests'
-      version: '5.015'
-    -
-      class: Dist::Zilla::Plugin::Test::Kwalitee
-      name: '@Author::RWSTAUNER/@TestingMania/Test::Kwalitee'
-      version: '2.07'
-    -
-      class: Dist::Zilla::Plugin::Test::EOL
-      name: '@Author::RWSTAUNER/@TestingMania/Test::EOL'
-      version: '0.12'
-    -
       class: Dist::Zilla::Plugin::Test::Synopsis
       name: '@Author::RWSTAUNER/@TestingMania/Test::Synopsis'
-      version: '2.000004'
-    -
-      class: Dist::Zilla::Plugin::Test::DistManifest
-      name: '@Author::RWSTAUNER/@TestingMania/Test::DistManifest'
       version: '2.000004'
     -
       class: Dist::Zilla::Plugin::Test::CPAN::Meta::JSON
       name: '@Author::RWSTAUNER/@TestingMania/Test::CPAN::Meta::JSON'
       version: '0.003'
+    -
+      class: Dist::Zilla::Plugin::PodSyntaxTests
+      name: '@Author::RWSTAUNER/@TestingMania/PodSyntaxTests'
+      version: '5.019'
+    -
+      class: Dist::Zilla::Plugin::MetaTests
+      name: '@Author::RWSTAUNER/@TestingMania/MetaTests'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::Test::Compile
       config:
@@ -392,34 +364,61 @@ x_Dist_Zilla:
           script_finder:
             - ':ExecFiles'
       name: '@Author::RWSTAUNER/@TestingMania/Test::Compile'
-      version: '2.040'
+      version: '2.043'
+    -
+      class: Dist::Zilla::Plugin::Test::EOL
+      name: '@Author::RWSTAUNER/@TestingMania/Test::EOL'
+      version: '0.12'
+    -
+      class: Dist::Zilla::Plugin::Test::Perl::Critic
+      name: '@Author::RWSTAUNER/@TestingMania/Test::Perl::Critic'
+      version: '2.112410'
+    -
+      class: Dist::Zilla::Plugin::Test::DistManifest
+      name: '@Author::RWSTAUNER/@TestingMania/Test::DistManifest'
+      version: '2.000004'
+    -
+      class: Dist::Zilla::Plugin::Test::Portability
+      name: '@Author::RWSTAUNER/@TestingMania/Test::Portability'
+      version: '2.000005'
     -
       class: Dist::Zilla::Plugin::Test::MinimumVersion
       name: '@Author::RWSTAUNER/@TestingMania/Test::MinimumVersion'
       version: '2.000005'
     -
-      class: Dist::Zilla::Plugin::NoTabsTests
-      config:
-        Dist::Zilla::Plugin::Test::NoTabs:
-          module_finder:
-            - ':InstallModules'
-          script_finder:
-            - ':ExecFiles'
-            - ':TestFiles'
-      name: '@Author::RWSTAUNER/@TestingMania/NoTabsTests'
-      version: '0.07'
+      class: Dist::Zilla::Plugin::PodCoverageTests
+      name: '@Author::RWSTAUNER/@TestingMania/PodCoverageTests'
+      version: '5.019'
+    -
+      class: Dist::Zilla::Plugin::Test::Kwalitee
+      name: '@Author::RWSTAUNER/@TestingMania/Test::Kwalitee'
+      version: '2.07'
     -
       class: Dist::Zilla::Plugin::MojibakeTests
       name: '@Author::RWSTAUNER/@TestingMania/MojibakeTests'
-      version: '0.5'
+      version: '0.7'
     -
-      class: Dist::Zilla::Plugin::PodSyntaxTests
-      name: '@Author::RWSTAUNER/@TestingMania/PodSyntaxTests'
-      version: '5.015'
+      class: Dist::Zilla::Plugin::Test::NoTabs
+      config:
+        Dist::Zilla::Plugin::Test::NoTabs:
+          finder:
+            - ':InstallModules'
+            - ':ExecFiles'
+            - ':TestFiles'
+      name: '@Author::RWSTAUNER/@TestingMania/Test::NoTabs'
+      version: '0.08'
+    -
+      class: Dist::Zilla::Plugin::Test::UnusedVars
+      name: '@Author::RWSTAUNER/@TestingMania/Test::UnusedVars'
+      version: '2.000006'
+    -
+      class: Dist::Zilla::Plugin::Test::Version
+      name: '@Author::RWSTAUNER/@TestingMania/Test::Version'
+      version: '0.002004'
     -
       class: Dist::Zilla::Plugin::Manifest
       name: '@Author::RWSTAUNER/Manifest'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::CheckExtraTests
       name: '@Author::RWSTAUNER/CheckExtraTests'
@@ -435,11 +434,11 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::CheckPrereqsIndexed
       name: '@Author::RWSTAUNER/CheckPrereqsIndexed'
-      version: '0.010'
+      version: '0.012'
     -
       class: Dist::Zilla::Plugin::TestRelease
       name: '@Author::RWSTAUNER/TestRelease'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::Git::Check
       config:
@@ -457,7 +456,7 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::RWSTAUNER/@Git/Check'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::Git::Commit
       config:
@@ -477,21 +476,21 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::RWSTAUNER/@Git/Commit'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::Git::Tag
       config:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v2.001
+          tag: v2.002
           tag_format: v%v
           tag_message: v%v
           time_zone: local
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::RWSTAUNER/@Git/Tag'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::Git::Push
       config:
@@ -502,15 +501,15 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::RWSTAUNER/@Git/Push'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::ConfirmRelease
       name: '@Author::RWSTAUNER/ConfirmRelease'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::UploadToCPAN
       name: '@Author::RWSTAUNER/UploadToCPAN'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::InstallRelease
       name: '@Author::RWSTAUNER/InstallRelease'
@@ -518,47 +517,48 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':IncModules'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':TestFiles'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ExecFiles'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':ShareFiles'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':MainModule'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':AllFiles'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':NoFiles'
-      version: '5.015'
+      version: '5.019'
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: '@Author::RWSTAUNER/MetaProvides::Package/AUTOVIV/:InstallModulesPM'
-      version: '5.015'
+      version: '5.019'
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
       is_trial: '0'
-    version: '5.015'
+    version: '5.019'
 x_authority: cpan:RWSTAUNER
 x_contributors:
   - 'Aristotle Pagaltzis <aristotle@cpan.org>'
+  - 'Cindy Wang (CindyLinz) <cindylinz@gmail.com>'
   - 'Graham Ollis <plicease@cpan.org>'
   - 'Mike Covington <mfcovington@gmail.com>'
   - 'Peter Vereshagin <veresc@cpan.org>'

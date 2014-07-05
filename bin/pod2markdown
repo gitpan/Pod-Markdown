@@ -43,11 +43,9 @@ __END__
 =encoding UTF-8
 
 =for :stopwords Marcel Gruenauer Victor Moral Ryan C. Thompson <rct at thompsonclan d0t
-org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS
-<aristotle@cpan.org> Graham Ollis <plicease@cpan.org> Mike Covington
-<mfcovington@gmail.com> Peter Vereshagin <veresc@cpan.org>
-<rthompson@cpan.org> Yasutaka ATARASHI <yakex@cpan.org> motemen
-<motemen@cpan.org> moznion <moznion@cpan.org>
+org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS (CindyLinz) Peter
+Vereshagin Wang Yasutaka motemen moznion ATARASHI Cindy Covington Graham
+Mike Ollis
 
 =head1 NAME
 
@@ -55,7 +53,7 @@ pod2markdown - Convert POD text to Markdown
 
 =head1 VERSION
 
-version 2.001
+version 2.002
 
 =head1 SYNOPSIS
 

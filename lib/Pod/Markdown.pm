@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Pod::Markdown;
-# git description: v2.000-3-ga15fde1
-$Pod::Markdown::VERSION = '2.001';
+# git description: v2.001-2-gadb8327
+$Pod::Markdown::VERSION = '2.002';
 BEGIN {
   $Pod::Markdown::AUTHORITY = 'cpan:RWSTAUNER';
 }
@@ -883,12 +883,10 @@ __END__
 =encoding UTF-8
 
 =for :stopwords Marcel Gruenauer Victor Moral Ryan C. Thompson <rct at thompsonclan d0t
-org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS Yasutaka ATARASHI
-motemen moznion Graham Ollis Mike Covington Peter Vereshagin
-<aristotle@cpan.org> <plicease@cpan.org> <mfcovington@gmail.com>
-<veresc@cpan.org> <rthompson@cpan.org> <yakex@cpan.org> <motemen@cpan.org>
-<moznion@cpan.org> html cpan testmatrix url annocpan anno bugtracker rt
-cpants kwalitee diff irc mailto metadata placeholders metacpan
+org> Aristotle Pagaltzis Randy Stauner ACKNOWLEDGEMENTS Vereshagin Yasutaka
+ATARASHI motemen moznion Cindy Wang (CindyLinz) Graham Ollis Mike Covington
+Peter html cpan testmatrix url annocpan anno bugtracker rt cpants kwalitee
+diff irc mailto metadata placeholders metacpan
 
 =head1 NAME
 
@@ -896,14 +894,14 @@ Pod::Markdown - Convert POD to Markdown
 
 =head1 VERSION
 
-version 2.001
+version 2.002
 
 =head1 SYNOPSIS
 
   # Pod::Simple API is supported.
 
-  # Parse a pod file and print to STDOUT:
-  Pod::Markdown->new->filter($pod_file);
+  # Command line usage: Parse a pod file and print to STDOUT:
+  # $ perl -MPod::Markdown -e 'Pod::Markdown->new->filter(@ARGV)' path/to/POD/file > README.md
 
   # Work with strings:
   my $markdown;
@@ -1123,7 +1121,7 @@ parse_from_filehandle
 end_.+
 start_.+
 
-=for test_synopsis my ($pod_file, $pod_string);
+=for test_synopsis my ($pod_string);
 
 =head1 SEE ALSO
 
@@ -1222,6 +1220,10 @@ Randy Stauner <rwstauner@cpan.org>
 =item *
 
 Aristotle Pagaltzis <aristotle@cpan.org>
+
+=item *
+
+Cindy Wang (CindyLinz) <cindylinz@gmail.com>
 
 =item *
 

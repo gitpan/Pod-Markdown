@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-# this test was generated with Dist::Zilla::Plugin::NoTabsTests 0.07
+# this test was generated with Dist::Zilla::Plugin::Test::NoTabs 0.08
 
 use Test::More 0.88;
 use Test::NoTabs;

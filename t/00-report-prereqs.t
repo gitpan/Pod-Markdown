@@ -57,7 +57,8 @@ my $static_prereqs = do { my $x = {
                                       'Test::More' => '0',
                                       'Test::NoTabs' => '0',
                                       'Test::Pod' => '1.41',
-                                      'Test::Pod::Coverage' => '1.08'
+                                      'Test::Pod::Coverage' => '1.08',
+                                      'Test::Spelling' => '0.12'
                                     }
                     },
        'runtime' => {
